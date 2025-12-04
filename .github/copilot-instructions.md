@@ -102,6 +102,9 @@ When generating or editing blog posts in `docs/`:
 - At the end of the post, include a `## Further reading and resources` section when there are relevant references. Use this to list:
   - External resources (books, articles, talks, documentation) that deepen or support the content of the post.
   - Internal resources (other posts in this blog or companion projects in this repo) that are directly relevant.
+  - Prefer at least one **freely viewable, web-accessible** resource (official documentation, articles, talks) so readers can explore further without buying a book.
+  - It is fine to include books, especially canonical ones (for example, Evans, Fowler, "Gang of Four"), but try not to rely on books as the **only** reference where good web resources exist.
+  - When listing both web resources and books, put web resources first, then books, and label books clearly (for example, "(book)").
 
 ### Series navigation
 
@@ -145,7 +148,10 @@ When generating or editing blog posts in `docs/`:
   - Include a short, opinionated explanation of the term in the author’s own words.
   - Optionally list **How I use this** (links to posts in this blog where the concept is applied or discussed).
   - Optionally list **Related concepts** (links to other glossary entries).
-  - Optionally list **External references** (a small number of high-quality external resources).
+  - Optionally list **External references** (a small number of high-quality external resources). Prefer at least one freely viewable, web-accessible resource; books are welcome in addition, especially when they are the canonical reference.
+- Order glossary entries **alphabetically by term name** (case-insensitive).
+  - When adding a new term, insert it in the correct alphabetical position rather than appending to the end.
+  - Do not create separate "featured" or "pinned" sections; use links from posts instead to highlight particularly important concepts.
 - When introducing or using an important concept in a post (for example, clean architecture, monorepo, strangler fig, seams, feature toggles):
   - Prefer to link the first mention of the term to its glossary entry, for example:
 
