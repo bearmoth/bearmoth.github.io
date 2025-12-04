@@ -8,6 +8,8 @@ Welcome to the first post in my series on discovering and introducing [clean arc
 
 Along the way, we’ll iteratively build out a concrete service, using it as a living reference implementation rather than a purely theoretical example. That service is the thread that ties the series together: we’ll revisit it in each post, refine the design, and use it to test how well the patterns hold up under real constraints.
 
+I also wanted a better way to explain the new system design to colleagues without feeling like the Charlie Day conspiracy meme, gesturing wildly at a wall of string and arrows. Writing the series is my way of turning that mental wall into something calmer and more structured that people can revisit at their own pace.
+
 > **Disclaimer:** This service and its design are very much a work in progress. I’m still uncovering constraints, surfacing awkward edges in the existing monorepo, and experimenting with how far these patterns will stretch before they become painful. Wherever something is unresolved, I’ll call it out explicitly so you can see both what is working and what still feels uncertain.
 
 ---
