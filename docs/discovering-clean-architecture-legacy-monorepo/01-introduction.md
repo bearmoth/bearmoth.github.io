@@ -16,6 +16,11 @@ I also wanted a better way to explain the new system design to colleagues withou
 
 ## Series Navigation
 - **[Introduction](./01-introduction.md)** (current)
+- [Architecture Overview](./02-architecture-overview.md)
+- [The Domain Layer](./03-domain-layer.md)
+- [The Application Layer](./04-application-layer.md)
+- [The Infrastructure Layer](./05-infrastructure-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./06-ports-and-adapters.md)
 
 ---
 
@@ -86,7 +91,7 @@ I’ll dig into these ideas in more detail in the next posts, but for this intro
 
 ## Looking Ahead
 
-In the next posts, I’ll step back from Vertical Slices and lay out the Clean Architecture principles I’m using as a reference point for new services in this monorepo. I’ll talk about how those ideas show up in day-to-day decisions, how [Effect](../../glossary.md#effect) helps with dependency management and error handling, and how I’m trying to turn one service into a concrete reference for the rest of the codebase.
+In the next post, I'll step back and give you a high-level map of the Clean Architecture approach I'm using. We'll look at the three main layers—domain, application, and infrastructure—and establish the dependency rules that hold everything together. This foundation will carry us through the rest of the series.
 
 ---
 

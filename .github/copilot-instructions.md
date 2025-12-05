@@ -145,11 +145,25 @@ When generating or editing blog posts in `docs/`:
 - This repo uses a central glossary file under `docs/` (typically `docs/glossary.md` or similar) to capture recurring concepts, patterns, anti-patterns, and key technologies.
 - Each glossary entry should:
   - Use an H2 heading (`## Term`) for the concept name.
-  - Include a short, opinionated explanation of the term in the author’s own words.
+  - For terms with multiple meanings or that could be ambiguous without context, use the format `## Term (context)` to clarify which meaning is being used. For example:
+    - `## Composition root (dependency injection)` rather than just `## Composition root`
+    - `## Entities (domain-driven design)` rather than just `## Entities`
+    - `## Gateways (architecture pattern)` rather than just `## Gateways`
+  - This makes it clear which specific meaning of the term is being documented, especially when the term has different meanings in different contexts.
+  - Immediately after the heading, include a **Type:** field that categorizes what kind of thing this entry describes. The type system is extensible—add new types as needed when existing categories don't fit. Common types include:
+    - **Definition** — defines what a type or category of thing means (for example, what is a "principle", what is a "pattern")
+    - **Principle** — fundamental design or architectural principle (for example, dependency inversion, SOLID principles)
+    - **Pattern** — a reusable solution or approach to a recurring problem (for example, repository pattern, ports and adapters, anti-corruption layer)
+    - **Technique** — a specific practice or method (for example, dependency injection, test-driven development)
+    - **Concept** — an architectural or domain modeling concept (for example, clean architecture, bounded contexts, entities, value objects)
+    - **Layer** — a specific architectural layer (for example, domain layer, application layer, infrastructure layer)
+    - **Library/Tool** — a specific technology or library (for example, Effect, TypeScript)
+    Use the most specific and accurate type. If a term could fit multiple categories, choose the one that best reflects its primary nature (for example, "ports and adapters" is primarily a pattern, even though it also embodies the dependency inversion principle). When introducing a new type category, consider adding a definition entry to explain what that type means.
+  - Include a short, opinionated explanation of the term in the author's own words.
   - Optionally list **How I use this** (links to posts in this blog where the concept is applied or discussed).
   - Optionally list **Related concepts** (links to other glossary entries).
   - Optionally list **External references** (a small number of high-quality external resources). Prefer at least one freely viewable, web-accessible resource; books are welcome in addition, especially when they are the canonical reference.
-- Order glossary entries **alphabetically by term name** (case-insensitive).
+- Order glossary entries **alphabetically by term name** (case-insensitive), ignoring the context qualifier in parentheses for sorting purposes.
   - When adding a new term, insert it in the correct alphabetical position rather than appending to the end.
   - Do not create separate "featured" or "pinned" sections; use links from posts instead to highlight particularly important concepts.
 - When introducing or using an important concept in a post (for example, clean architecture, monorepo, strangler fig, seams, feature toggles):
