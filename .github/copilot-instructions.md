@@ -94,6 +94,8 @@ When generating or editing blog posts in `docs/`:
 
     `**Themes:** clean architecture, legacy monorepo, refactoring`
 
+  - If a post feels like it genuinely needs more than 6 core themes, pause and consider whether it would be clearer as a short series or multiple focused posts, rather than a single, overloaded article.
+
 - Use section headings (`##`, `###`) to organize the content logically. Prefer:
   - Problem statement or context.
   - Explanation / background (if needed).
