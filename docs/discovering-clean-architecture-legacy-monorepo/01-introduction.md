@@ -19,7 +19,7 @@ I also wanted a better way to explain the new system design to colleagues withou
 - [Architecture Overview](./02-architecture-overview.md)
 - [The Domain Layer](./03-domain-layer.md)
 - [The Application Layer](./04-application-layer.md)
-- [The Infrastructure Layer](./05-infrastructure-layer.md)
+- [The Interface Adapters Layer](./05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./06-ports-and-adapters.md)
 
 ---
@@ -73,10 +73,10 @@ Ultimately, while the hybrid Vertical Slice and Clean Architecture approach offe
 
 ## Why Clean Architecture Looked Like a Better Fit
 
-When I stepped back and looked at the problems we were actually running into, they were less about how to slice features and more about having clear, consistent boundaries between concerns: domain logic, infrastructure, and the outside world. Clean Architecture gave me a vocabulary and a set of patterns for drawing those boundaries explicitly, instead of relying on directory structure alone.
+When I stepped back and looked at the problems we were actually running into, they were less about how to slice features and more about having clear, consistent boundaries between concerns: domain logic, interface adapters (infrastructure), and the outside world. Clean Architecture gave me a vocabulary and a set of patterns for drawing those boundaries explicitly, instead of relying on directory structure alone.
 
 As I adopt Clean Architecture, I also want to stay deliberate about how I use **horizontal layering**. Shared layers are powerful, but without strong bounded contexts they can quietly turn into a bloated “shared” area — a kind of monolith in disguise where everything depends on everything else. Being conscious of that risk is part of why I’m aiming for a combination of:
-- Clear horizontal layers (domain, application, infrastructure), and
+- Clear horizontal layers (domain, application, interface adapters), and
 - Clear vertical boundaries in the form of bounded contexts that keep models, language and rules tightly focused.
 
 At a high level, it looked like a better fit because it:
@@ -91,7 +91,7 @@ I’ll dig into these ideas in more detail in the next posts, but for this intro
 
 ## Looking Ahead
 
-In the next post, I'll step back and give you a high-level map of the Clean Architecture approach I'm using. We'll look at the three main layers—domain, application, and infrastructure—and establish the dependency rules that hold everything together. This foundation will carry us through the rest of the series.
+In the next post, I'll step back and give you a high-level map of the Clean Architecture approach I'm using. We'll look at the three main layers — domain, application, and interface adapters — and establish the dependency rules that hold everything together. This foundation will carry us through the rest of the series.
 
 ---
 

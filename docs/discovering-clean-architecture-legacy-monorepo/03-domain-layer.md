@@ -15,7 +15,7 @@ The domain layer is the heart of Clean Architecture. It's where the business rul
 - [Architecture Overview](./02-architecture-overview.md)
 - **[The Domain Layer](./03-domain-layer.md)** (current)
 - [The Application Layer](./04-application-layer.md)
-- [The Infrastructure Layer](./05-infrastructure-layer.md)
+- [The Infrastructure Layer](./05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./06-ports-and-adapters.md)
 
 ---

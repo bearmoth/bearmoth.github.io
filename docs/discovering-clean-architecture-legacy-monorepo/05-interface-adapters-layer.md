@@ -1,10 +1,10 @@
-# The Infrastructure Layer
+# The Interface Adapters Layer
 
 Published on 2025-12-05
 
-**Themes:** infrastructure layer, adapters, repositories, HTTP servers, integration, side effects
+**Themes:** interface adapters layer, adapters, repositories, HTTP servers, integration, side effects
 
-The infrastructure layer is where we finally leave the world of pure logic and interfaces, and start dealing with the messy reality of databases, HTTP frameworks, external APIs, and all the other details that make software run. In this post, we'll look at what lives in the infrastructure layer and how it implements the contracts defined by the application layer.
+The interface adapters layer is where we finally leave the world of pure logic and interfaces, and start dealing with the messy reality of databases, HTTP frameworks, external APIs, and all the other details that make software run. In this post, we'll look at what lives in the adapters layer and how it implements the contracts defined by the application layer.
 
 ---
 
@@ -13,30 +13,30 @@ The infrastructure layer is where we finally leave the world of pure logic and i
 - [Architecture Overview](./02-architecture-overview.md)
 - [The Domain Layer](./03-domain-layer.md)
 - [The Application Layer](./04-application-layer.md)
-- **[The Infrastructure Layer](./05-infrastructure-layer.md)** (current)
+- **[The Interface Adapters Layer](./05-interface-adapters-layer.md)** (current)
 - [Ports, Adapters, and Dependency Inversion](./06-ports-and-adapters.md)
 
 ---
 
-## What Lives in the Infrastructure Layer
+## What Lives in the Interface Adapters Layer
 
-The infrastructure layer contains all the code that interacts with the outside world. It's responsible for I/O, side effects, and integration with external systems. This includes:
+The interface adapters layer contains all the code that interacts with the outside world on behalf of our service. It's responsible for I/O, side effects, and integration with external systems. This includes:
 
 ### Database Repositories
 
 Repositories handle persistence. They implement the repository interfaces (ports) defined by the application layer, translating between domain objects and database storage.
 
-A repository might use an ORM, write raw SQL, or interact with a NoSQL database. The domain and application layers don't know or care. They depend on the repository interface, and infrastructure provides the implementation.
+A repository might use an ORM, write raw SQL, or interact with a NoSQL database. The domain and application layers don't know or care. They depend on the repository interface, and adapters provide the implementation.
 
 ### Gateways and External API Clients
 
-Gateways handle communication with external services. If your service needs to call a payment provider, send an email, or fetch data from a third-party API, that logic lives in the infrastructure layer.
+Gateways handle communication with external services. If your service needs to call a payment provider, send an email, or fetch data from a third-party API, that logic lives in the adapters layer.
 
 Like repositories, gateways typically implement interfaces defined by the application layer. This keeps the application layer isolated from the specifics of HTTP clients, API authentication, and response parsing.
 
 ### HTTP and RPC Servers
 
-HTTP servers (or RPC servers, or GraphQL servers) are part of the infrastructure layer. They handle routing, request parsing, response formatting, and all the other framework-specific concerns that surround exposing your service to the outside world.
+HTTP servers (or RPC servers, or GraphQL servers) are part of the adapters layer. They handle routing, request parsing, response formatting, and all the other framework-specific concerns that surround exposing your service to the outside world.
 
 A typical HTTP handler:
 - Accepts a request.
@@ -45,36 +45,36 @@ A typical HTTP handler:
 - Calls an application service (via its interface).
 - Formats the result as an HTTP response.
 
-The application layer doesn't know about HTTP status codes, headers, or routing. That's all infrastructure.
+The application layer doesn't know about HTTP status codes, headers, or routing. That's all adapters and framework infrastructure.
 
 ### Message Queue Subscribers and Workers
 
-If your service subscribes to a message queue or runs background jobs, that logic lives in the infrastructure layer. Subscribers listen for messages, parse them, and invoke application services to handle the work.
+If your service subscribes to a message queue or runs background jobs, that logic lives in the adapters layer. Subscribers listen for messages, parse them, and invoke application services to handle the work.
 
 Workers might poll for tasks, execute batch operations, or handle scheduled jobs. Like HTTP handlers, they translate external inputs into DTOs and delegate to the application layer.
 
 ### Configuration and Bootstrapping
 
-Infrastructure is also responsible for assembling the application. This includes reading configuration, wiring up dependencies, and creating instances of repositories, services, and handlers.
+Adapters code is also responsible for assembling the application. This includes reading configuration, wiring up dependencies, and creating instances of repositories, services, and handlers.
 
-We'll cover this in more detail in the [next post on dependency inversion](./06-ports-and-adapters.md), but the key point is that infrastructure is where concrete implementations meet interfaces, and where everything gets connected.
+We'll cover this in more detail in the [next post on dependency inversion](./06-ports-and-adapters.md), but the key point is that adapters are where concrete implementations meet interfaces, and where everything gets connected.
 
 ---
 
-## Dependency Rules for the Infrastructure Layer
+## Dependency Rules for the Interface Adapters Layer
 
-As covered in the [architecture overview](./02-architecture-overview.md), the infrastructure layer can import from:
-- The infrastructure layer itself (shared utilities, configuration).
+As covered in the [architecture overview](./02-architecture-overview.md), the adapters layer can import from:
+- The adapters layer itself (shared utilities, configuration).
 - The [application layer](./04-application-layer.md) (ports/interfaces, DTOs, application services).
 - The [domain layer](./03-domain-layer.md) (models, domain errors).
 
-Infrastructure is the only layer with visibility into all three. This makes sense: infrastructure needs to know about domain models (to persist them), application interfaces (to implement them), and other infrastructure code (to share utilities).
+Adapters are the only layer with visibility into all three. This makes sense: adapters need to know about domain models (to persist them), application interfaces (to implement them), and other adapter code (to share utilities).
 
 ---
 
 ## Containing the Mess
 
-The infrastructure layer is inherently messy. It deals with unreliable networks, slow databases, external APIs with inconsistent behaviour, and frameworks with their own opinions about how code should be structured.
+The interface adapters layer is inherently messy. It deals with unreliable networks, slow databases, external APIs with inconsistent behaviour, and frameworks with their own opinions about how code should be structured.
 
 The goal isn't to eliminate that mess—it's to **contain** it. By keeping infrastructure at the outer edge of the architecture, we prevent it from leaking into the domain or application layers.
 

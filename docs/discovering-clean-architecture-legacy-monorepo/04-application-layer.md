@@ -13,7 +13,7 @@ The application layer sits between the domain and infrastructure. It's where use
 - [Architecture Overview](./02-architecture-overview.md)
 - [The Domain Layer](./03-domain-layer.md)
 - **[The Application Layer](./04-application-layer.md)** (current)
-- [The Infrastructure Layer](./05-infrastructure-layer.md)
+- [The Infrastructure Layer](./05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./06-ports-and-adapters.md)
 
 ---

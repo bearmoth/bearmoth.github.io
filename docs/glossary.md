@@ -27,19 +27,19 @@ This is particularly useful when integrating with legacy systems that have messy
 
 **Type:** Layer
 
-The middle layer in Clean Architecture, sitting between the domain and infrastructure. The application layer orchestrates domain logic to fulfill use-cases, defines what the service does (without knowing how infrastructure is implemented), and expresses infrastructure needs through interfaces (ports).
+The middle layer in Clean Architecture, sitting between the domain and interface adapters/infrastructure. The application layer orchestrates domain logic to fulfill use-cases, defines what the service does (without knowing how adapters or infrastructure are implemented), and expresses infrastructure needs through interfaces (ports).
 
-Application services coordinate domain objects, apply application-level validation, and interact with infrastructure through dependency injection.
+Application services coordinate domain objects, apply application-level validation, and interact with adapters and other infrastructure through dependency injection.
 
 **How I use this**
 - [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
 - [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-infrastructure-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Domain layer](#domain-layer)
-- [Infrastructure layer](#infrastructure-layer)
+- [Interface adapters layer](#interface-adapters-layer)
 - [Clean Architecture](#clean-architecture)
 - [Ports and adapters](#ports-and-adapters)
 
@@ -53,7 +53,7 @@ Application services coordinate domain objects, apply application-level validati
 
 A way of carving a large domain into smaller, cohesive areas of language, rules and models. Each bounded context owns its own terminology and invariants, and only collaborates with others through explicit, well-designed boundaries.
 
-In a monorepo that uses Clean Architecture, I want each bounded context to contain its own layers (domain, application, infrastructure) rather than sharing a single, bloated "core" across everything.
+In a monorepo that uses Clean Architecture, I want each bounded context to contain its own layers (domain, application, interface adapters) rather than sharing a single, bloated "core" across everything.
 
 **How I use this**
 - [Discovering Clean Architecture in a Legacy Monorepo](./discovering-clean-architecture-legacy-monorepo/01-introduction.md)
@@ -76,7 +76,7 @@ A set of principles for structuring code so that business and domain logic sit a
 - [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
 - [The Domain Layer](./discovering-clean-architecture-legacy-monorepo/03-domain-layer.md)
 - [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-infrastructure-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
 
 **Related concepts**
@@ -84,7 +84,7 @@ A set of principles for structuring code so that business and domain logic sit a
 - [Monorepo](#monorepo)
 - [Application layer](#application-layer)
 - [Domain layer](#domain-layer)
-- [Infrastructure layer](#infrastructure-layer)
+- [Interface adapters layer](#interface-adapters-layer)
 
 **External references**
 - [The Clean Architecture (Robert C. Martin)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
@@ -105,7 +105,7 @@ This is the only part of the codebase where concrete implementations are explici
 **Related concepts**
 - [Dependency injection](#dependency-injection)
 - [Ports and adapters](#ports-and-adapters)
-- [Infrastructure layer](#infrastructure-layer)
+- [Interface adapters layer](#interface-adapters-layer)
 
 **External references**
 - [Dependency Injection (Martin Fowler)](https://martinfowler.com/articles/injection.html)
@@ -164,7 +164,7 @@ In Clean Architecture, dependency inversion is what allows the application layer
 
 **Type:** Layer
 
-The innermost layer in Clean Architecture, containing business rules, models, invariants, and pure domain logic. The domain layer has no dependencies on application or infrastructure code—it only depends on itself.
+The innermost layer in Clean Architecture, containing business rules, models, invariants, and pure domain logic. The domain layer has no dependencies on application or interface-adapter/infrastructure code—it only depends on itself.
 
 This isolation keeps domain logic portable, testable, and insulated from infrastructure changes. When business requirements change, the domain layer changes. When infrastructure changes (databases, frameworks, external APIs), the domain layer remains stable.
 
@@ -172,11 +172,11 @@ This isolation keeps domain logic portable, testable, and insulated from infrast
 - [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
 - [The Domain Layer](./discovering-clean-architecture-legacy-monorepo/03-domain-layer.md)
 - [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-infrastructure-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
 
 **Related concepts**
 - [Application layer](#application-layer)
-- [Infrastructure layer](#infrastructure-layer)
+- [Interface adapters layer](#interface-adapters-layer)
 - [Clean Architecture](#clean-architecture)
 - [Invariants](#invariants)
 
@@ -244,11 +244,11 @@ Infrastructure components that handle communication with external services and t
 Like repositories, gateways implement interfaces (ports) defined by the application layer. This keeps the application isolated from the specifics of how external systems are accessed. Examples include payment provider clients, email services, and third-party data sources.
 
 **How I use this**
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-infrastructure-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
 
 **Related concepts**
-- [Infrastructure layer](#infrastructure-layer)
+- [Interface adapters layer](#interface-adapters-layer)
 - [Ports and adapters](#ports-and-adapters)
 - [Repository pattern](#repository-pattern)
 - [Anti-corruption layer](#anti-corruption-layer)
@@ -257,18 +257,18 @@ Like repositories, gateways implement interfaces (ports) defined by the applicat
 - [Gateway (Martin Fowler)](https://martinfowler.com/eaaCatalog/gateway.html)
 - [Hexagonal Architecture (Alistair Cockburn)](https://alistair.cockburn.us/hexagonal-architecture/)
 
-## Infrastructure layer
+## Interface adapters layer
 
 **Type:** Layer
 
-The outermost layer in Clean Architecture, responsible for interacting with the outside world: databases, HTTP frameworks, external APIs, message queues, and all other I/O and side effects. Infrastructure implements the interfaces (ports) defined by the application layer and can import from all three layers.
+The outermost layer in Clean Architecture that we own in our services, responsible for interacting with the outside world: databases, HTTP frameworks, external APIs, message queues, and all other I/O and side effects. Interface adapters implement the interfaces (ports) defined by the application layer and can import from all three layers.
 
-The infrastructure layer contains the "messy details" that make software run in the real world, while keeping that mess contained at the edges of the architecture.
+The interface adapters layer contains the "messy details" that make software run in the real world, while keeping that mess contained at the edges of the architecture.
 
 **How I use this**
 - [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
 - [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-infrastructure-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
 
 **Related concepts**
@@ -360,7 +360,7 @@ Ports come in two flavours: driven (secondary) ports are used by the application
 
 **How I use this**
 - [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-infrastructure-layer.md)
+- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
 
 **Related concepts**
@@ -381,11 +381,11 @@ A pattern where data access logic is encapsulated behind an interface that mimic
 In Clean Architecture, repository interfaces (ports) are defined in the application layer, and concrete implementations (adapters) live in the infrastructure layer.
 
 **How I use this**
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-infrastructure-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
 
 **Related concepts**
-- [Infrastructure layer](#infrastructure-layer)
+- [Interface adapters layer](#interface-adapters-layer)
 - [Ports and adapters](#ports-and-adapters)
 
 **External references**

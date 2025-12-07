@@ -13,7 +13,7 @@ We've explored the three layers—domain, application, and infrastructure—and 
 - [Architecture Overview](./02-architecture-overview.md)
 - [The Domain Layer](./03-domain-layer.md)
 - [The Application Layer](./04-application-layer.md)
-- [The Infrastructure Layer](./05-infrastructure-layer.md)
+- [The Infrastructure Layer](./05-interface-adapters-layer.md)
 - **[Ports, Adapters, and Dependency Inversion](./06-ports-and-adapters.md)** (current)
 
 ---
@@ -146,10 +146,10 @@ export interface OrderRepository {
 }
 ```
 
-**Infrastructure provides an adapter:**
+**Adapters provide an implementation:**
 
 ```typescript
-// infrastructure/repositories/postgres-order-repository.ts
+// adapters/repositories/postgres-order-repository.ts
 import { OrderRepository } from "../../application/ports/order-repository";
 import { Order } from "../../domain/order";
 
@@ -159,8 +159,8 @@ export class PostgresOrderRepository implements OrderRepository {
 ```
 
 Notice the import direction:
-- Infrastructure (`/infrastructure/repositories/postgres-order-repository.ts`) imports from the application layer (`/application/ports/order-repository.ts`).
-- The application layer never imports from infrastructure.
+- The adapter (`/adapters/repositories/postgres-order-repository.ts`) imports from the application layer (`/application/ports/order-repository.ts`).
+- The application layer never imports from adapters.
 
 This is dependency inversion in action. The dependency points from infrastructure (outer layer) to application (inner layer), even though the data flow at runtime might be from application to infrastructure (when the service calls the repository).
 

@@ -156,7 +156,7 @@ When generating or editing blog posts in `docs/`:
     - **Pattern** — a reusable solution or approach to a recurring problem (for example, repository pattern, ports and adapters, anti-corruption layer)
     - **Technique** — a specific practice or method (for example, dependency injection, test-driven development)
     - **Concept** — an architectural or domain modeling concept (for example, clean architecture, bounded contexts, entities, value objects)
-    - **Layer** — a specific architectural layer (for example, domain layer, application layer, infrastructure layer)
+    - **Layer** — a specific architectural layer (for example, domain layer, application layer, interface adapter layer)
     - **Library/Tool** — a specific technology or library (for example, Effect, TypeScript)
     Use the most specific and accurate type. If a term could fit multiple categories, choose the one that best reflects its primary nature (for example, "ports and adapters" is primarily a pattern, even though it also embodies the dependency inversion principle). When introducing a new type category, consider adding a definition entry to explain what that type means.
   - Include a short, opinionated explanation of the term in the author's own words.
