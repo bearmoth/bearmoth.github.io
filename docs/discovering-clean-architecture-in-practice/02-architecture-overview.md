@@ -1,6 +1,6 @@
 # Clean Architecture: A High-Level Map
 
-Last updated 2025-12-08
+Last updated 2025-12-09
 
 **Themes:** clean architecture, layered architecture, dependency rules, separation of concerns, software design
 
@@ -54,6 +54,24 @@ Another way to put this: the more business-specific a piece of code is, the less
 
 Here's how that plays out in practice:
 
+```mermaid
+---
+title: Dependency Rules
+config:
+    theme: forest
+---
+flowchart LR
+    IA["Interface Adapters"]
+    FD["Frameworks & Drivers"]
+    APP["Application Layer"]
+    DOMAIN["Domain Layer"]
+
+    IA -->|depends on| FD
+    IA -->|depends on| APP
+    IA -->|depends on| DOMAIN
+    APP -->|depends on| DOMAIN
+```
+
 ### Domain Layer Dependencies
 
 The domain layer can only import from other domain code. It has zero dependencies on application, interface adapter or frameworks & drivers.
@@ -93,8 +111,6 @@ The original Clean Architecture diagram includes a fourth ring outside Interface
 In this series, I do not model Frameworks & Drivers as a separate directory. Instead, they appear as third-party dependencies that the `adapters/` layer uses and wires into the application - they are just libraries that our adapters plug into.
 
 Because Frameworks & Drivers live outside our _core_ architecture, we have relatively little direct control over them from within a single service: we typically choose from a small set of approved options, and we inherit a lot of behaviour from the platform and wider organisation. For the purposes of this series I will mostly gloss over that outer ring and focus on how we design the layers we do control (domain, application, and adapters) so that we can swap or upgrade those outer tools with minimal pain, whether we are working in a monorepo or a standalone service.
-
-![Dependency flow diagram – placeholder]
 
 ---
 
