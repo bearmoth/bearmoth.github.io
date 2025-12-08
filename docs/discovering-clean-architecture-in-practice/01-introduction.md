@@ -32,6 +32,8 @@ The goal is not to present a perfect end state, but to show how these patterns b
 
 Part of my motivation for writing this series is to find a calmer, more structured way to talk about architectural ideas and implementations without feeling like the Charlie Day conspiracy meme, gesturing at a wall of string and arrows. Capturing the journey in writing forces me to slow down, name trade-offs explicitly, and leave a trail my future self (and colleagues) can actually follow.
 
+![Charlie Day gesturing wildly at notes on wall](../media/charlie-day-meme.jpg)
+
 The other part is pragmatic. I keep seeing the same kinds of problems repeat: unclear boundaries between domain and infrastructure, "shared" areas that quietly turn into a dumping ground, and a gap between high-level architectural diagrams and the reality of shipping code in a monorepo. This series is my attempt to bridge that gap by grounding the ideas in one concrete service, showing both where the patterns help and where they get in the way.
 
 One theme that will appear throughout is the importance of **well-considered [bounded contexts](../../glossary.md#bounded-contexts)**. Clean Architecture on its own gives us horizontal layers, but in a large monorepo, those layers need to sit inside clearly defined domains to avoid becoming a single, bloated "core". I want each context to have its own cohesive model, language and rules, with only deliberate, well-designed collaboration points between them.
