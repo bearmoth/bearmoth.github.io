@@ -2,7 +2,7 @@
 
 Last updated 2025-12-08
 
-**Themes:** clean architecture, vertical slice architecture, bounded contexts, Effect
+**Themes:** clean architecture, vertical slice architecture, bounded contexts
 
 Welcome to the first post in my series on refining and applying [clean architecture](../../glossary.md#clean-architecture) patterns while building new services in a TypeScript [monorepo](../../glossary.md#monorepo). I’ll document how I surface improved patterns, integrate with existing libraries (including legacy ones), and evolve architectural decisions in contexts that don’t start from a blank slate.
 
@@ -30,7 +30,7 @@ The goal is not to present a perfect end state, but to show how these patterns b
 
 ## Motivation and Goals
 
-Part of my motivation for writing this series is to find a calmer, more structured way to talk about new architectural ideas without feeling like the Charlie Day conspiracy meme, gesturing at a wall of string and arrows. Capturing the journey in writing forces me to slow down, name trade-offs explicitly, and leave a trail my future self (and colleagues) can actually follow.
+Part of my motivation for writing this series is to find a calmer, more structured way to talk about architectural ideas and implementations without feeling like the Charlie Day conspiracy meme, gesturing at a wall of string and arrows. Capturing the journey in writing forces me to slow down, name trade-offs explicitly, and leave a trail my future self (and colleagues) can actually follow.
 
 The other part is pragmatic. I keep seeing the same kinds of problems repeat: unclear boundaries between domain and infrastructure, "shared" areas that quietly turn into a dumping ground, and a gap between high-level architectural diagrams and the reality of shipping code in a monorepo. This series is my attempt to bridge that gap by grounding the ideas in one concrete service, showing both where the patterns help and where they get in the way.
 
