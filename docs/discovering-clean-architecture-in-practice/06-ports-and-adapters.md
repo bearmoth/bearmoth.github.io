@@ -1,6 +1,6 @@
 # Ports, Adapters, and Dependency Inversion
 
-Last updated 2025-12-08
+Last updated 2025-12-09
 
 **Themes:** ports and adapters, hexagonal architecture, dependency inversion, dependency injection, composition root
 
@@ -227,6 +227,10 @@ We've now covered the foundational ideas of Clean Architecture: the three layers
 In future posts, I'll dive into more specific topics: how we can leverage [Effect](../glossary.md#effect)'s vast ecosystem to achieve various patterns, how to structure bounded contexts in a monorepo, and how to test this architecture effectively.
 
 For now, you have the map. The rest of the series will fill in the details.
+
+Next Article (WIP)
+[<- Prev Article](./05-interface-adapters-layer.md)
+
 
 ---
 

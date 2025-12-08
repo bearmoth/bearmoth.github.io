@@ -98,6 +98,8 @@ I’ll dig into these ideas in more detail in the next posts, but for this intro
 
 In the next post, I'll step back and give you a high-level map of the Clean Architecture approach I'm using. We'll look at the three main layers — domain, application, and interface adapters — and establish the dependency rules that hold everything together. This foundation will carry us through the rest of the series.
 
+[Next Article ->](./02-architecture-overview.md)
+
 ---
 
 ## Further reading and resources

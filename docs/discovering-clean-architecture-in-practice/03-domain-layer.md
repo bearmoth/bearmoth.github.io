@@ -1,6 +1,6 @@
 # The Domain Layer
 
-Last updated 2025-12-08
+Last updated 2025-12-09
 
 **Themes:** domain-driven design, domain layer, business logic, invariants, domain modelling
 
@@ -130,6 +130,9 @@ The domain layer defines what an order is and what you can do with it. How order
 ## Looking Ahead
 
 In the next post, we'll move up one layer and look at the application layer. This is where we orchestrate domain logic to fulfill use-cases, and where we start to see the need for infrastructure without directly depending on it.
+
+[Next Article ->](./04-application-layer.md)
+[<- Prev Article](./02-architecture-overview.md)
 
 ---
 
