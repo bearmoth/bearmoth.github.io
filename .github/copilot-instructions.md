@@ -23,9 +23,9 @@ When working in this repository, focus primarily on:
     - Create a new Markdown file in `docs/` with a **clean, descriptive slug and no date prefix**.  
       - Example: `my-first-blog-post.md`, `rest-api-design.md`.
     - Add a link to it, with a brief description, in `docs/README.md`.
-    - Represent the publish date **in the content**, not in the filename:
-      - Use front-matter (`date:`) if the site is configured for it, and/or
-      - Add a “Published on YYYY-MM-DD” line near the top of the post.
+    - Represent the **last updated date** in the content, not in the filename:
+      - Use front-matter (for example, `last_updated:`) if the site is configured for it, and/or
+      - Add a “Last updated YYYY-MM-DD” line near the top of the post.
   - For a **blog series**:
     - Create a new directory inside `docs/` (for example, `docs/my-series/`).
     - Add each post in the series as a separate Markdown file within that directory.
@@ -89,7 +89,7 @@ When generating or editing blog posts in `docs/`:
 - Start each post with an H1 title (`# Title`).
 - Directly under the title, include:
   - A short introductory paragraph explaining the goal or outcome of the post.
-  - Optionally, a “Published on YYYY-MM-DD” line and any other basic metadata (unless handled by front-matter).
+  - Optionally, a “Last updated YYYY-MM-DD” line and any other basic metadata (unless handled by front-matter).
   - Optionally, a **Themes** line listing 2–6 key topics for the post, for example:
 
     `**Themes:** clean architecture, legacy monorepo, refactoring`

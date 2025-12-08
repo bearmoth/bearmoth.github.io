@@ -1,6 +1,6 @@
 # The Interface Adapters Layer
 
-Published on 2025-12-05
+Last updated 2025-12-08
 
 **Themes:** interface adapters layer, adapters, repositories, HTTP servers, integration, side effects
 
@@ -95,30 +95,28 @@ import { Pool } from "pg";
 export class PostgresOrderRepository implements OrderRepository {
   constructor(private readonly pool: Pool) {}
 
-  save(order: Order): Effect<void, RepositoryError> {
-    return Effect.tryPromise({
-      try: async () => {
-        await this.pool.query(
-          "INSERT INTO orders (id, items, status) VALUES ($1, $2, $3)",
-          [order.id, JSON.stringify(order.items), order.status]
-        );
-      },
-      catch: (error) => new RepositoryError("Failed to save order", error),
-    });
+  async save(order: Order): Promise<Order> {
+    try {
+      return await this.pool.query(
+        "INSERT INTO orders (id, items, status) VALUES ($1, $2, $3)",
+        [order.id, JSON.stringify(order.items), order.status]
+      );
+    } catch (error) {
+      throw new RepositoryError("Failed to save order", error);
+    };
   }
 
-  findById(id: OrderId): Effect<Order | null, RepositoryError> {
-    return Effect.tryPromise({
-      try: async () => {
-        const result = await this.pool.query(
-          "SELECT * FROM orders WHERE id = $1",
-          [id]
-        );
-        if (result.rows.length === 0) return null;
-        return this.mapRowToOrder(result.rows[0]);
-      },
-      catch: (error) => new RepositoryError("Failed to fetch order", error),
-    });
+  async findById(id: OrderId): Promise<Order | null> {
+    try {
+      const result = await this.pool.query(
+        "SELECT * FROM orders WHERE id = $1",
+        [id]
+      );
+      if (result.rows.length === 0) return null;
+      return this.mapRowToOrder(result.rows[0]);
+    } catch(error) {
+      throw new RepositoryError("Failed to fetch order", error);
+    }
   }
 
   private mapRowToOrder(row: any): Order {

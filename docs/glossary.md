@@ -13,7 +13,7 @@ A translation layer that sits between your domain and external systems or legacy
 This is particularly useful when integrating with legacy systems that have messy or inconsistent models, or when working with third-party APIs that use different terminology from your domain.
 
 **How I use this**
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
 
 **Related concepts**
 - [Application layer](#application-layer)
@@ -32,10 +32,10 @@ The middle layer in Clean Architecture, sitting between the domain and interface
 Application services coordinate domain objects, apply application-level validation, and interact with adapters and other infrastructure through dependency injection.
 
 **How I use this**
-- [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [Architecture Overview](./discovering-clean-architecture-in-practice/02-architecture-overview.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Domain layer](#domain-layer)
@@ -56,7 +56,7 @@ A way of carving a large domain into smaller, cohesive areas of language, rules 
 In a monorepo that uses Clean Architecture, I want each bounded context to contain its own layers (domain, application, interface adapters) rather than sharing a single, bloated "core" across everything.
 
 **How I use this**
-- [Discovering Clean Architecture in a Legacy Monorepo](./discovering-clean-architecture-legacy-monorepo/01-introduction.md)
+- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
 
 **Related concepts**
 - [Monorepo](#monorepo)
@@ -72,12 +72,12 @@ In a monorepo that uses Clean Architecture, I want each bounded context to conta
 A set of principles for structuring code so that business and domain logic sit at the centre, insulated from infrastructure and frameworks. Dependencies point inwards towards the domain, making it easier to change details like databases, HTTP frameworks or messaging without rewriting core behaviour.
 
 **How I use this**
-- [Discovering Clean Architecture in a Legacy Monorepo](./discovering-clean-architecture-legacy-monorepo/01-introduction.md)
-- [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
-- [The Domain Layer](./discovering-clean-architecture-legacy-monorepo/03-domain-layer.md)
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
+- [Architecture Overview](./discovering-clean-architecture-in-practice/02-architecture-overview.md)
+- [The Domain Layer](./discovering-clean-architecture-in-practice/03-domain-layer.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Bounded contexts](#bounded-contexts)
@@ -126,8 +126,8 @@ A technique where a component receives its dependencies from the outside rather 
 Dependency injection enables dependency inversion and makes code more testable: you can inject real implementations in production and test doubles (mocks, stubs) in tests. The composition root is where injection happens in practice.
 
 **How I use this**
-- [Discovering Clean Architecture in a Legacy Monorepo](./discovering-clean-architecture-legacy-monorepo/01-introduction.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Dependency inversion](#dependency-inversion)
@@ -147,9 +147,9 @@ A principle where high-level modules (like application services) define interfac
 In Clean Architecture, dependency inversion is what allows the application layer to use infrastructure (repositories, gateways) without directly depending on infrastructure code. The application layer defines ports (interfaces), and infrastructure provides adapters (implementations).
 
 **How I use this**
-- [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [Architecture Overview](./discovering-clean-architecture-in-practice/02-architecture-overview.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Ports and adapters](#ports-and-adapters)
@@ -169,10 +169,10 @@ The innermost layer in Clean Architecture, containing business rules, models, in
 This isolation keeps domain logic portable, testable, and insulated from infrastructure changes. When business requirements change, the domain layer changes. When infrastructure changes (databases, frameworks, external APIs), the domain layer remains stable.
 
 **How I use this**
-- [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
-- [The Domain Layer](./discovering-clean-architecture-legacy-monorepo/03-domain-layer.md)
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
+- [Architecture Overview](./discovering-clean-architecture-in-practice/02-architecture-overview.md)
+- [The Domain Layer](./discovering-clean-architecture-in-practice/03-domain-layer.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
 
 **Related concepts**
 - [Application layer](#application-layer)
@@ -193,7 +193,7 @@ Data Transfer Objects. Simple structures that carry data between layers or acros
 DTOs typically live in the application layer, where they act as a translation layer between the outside world and the domain.
 
 **How I use this**
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
 
 **Related concepts**
 - [Application layer](#application-layer)
@@ -211,7 +211,7 @@ Domain objects that have a distinct identity that persists over time, regardless
 Entities typically encapsulate business rules, enforce invariants, and expose domain operations. Unlike value objects, entities are mutable (though changes should preserve invariants), and equality is based on identity rather than attributes.
 
 **How I use this**
-- [The Domain Layer](./discovering-clean-architecture-legacy-monorepo/03-domain-layer.md)
+- [The Domain Layer](./discovering-clean-architecture-in-practice/03-domain-layer.md)
 
 **Related concepts**
 - [Value objects](#value-objects)
@@ -244,8 +244,8 @@ Infrastructure components that handle communication with external services and t
 Like repositories, gateways implement interfaces (ports) defined by the application layer. This keeps the application isolated from the specifics of how external systems are accessed. Examples include payment provider clients, email services, and third-party data sources.
 
 **How I use this**
-- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Interface adapters layer](#interface-adapters-layer)
@@ -266,10 +266,10 @@ The outermost layer in Clean Architecture that we own in our services, responsib
 The interface adapters layer contains the "messy details" that make software run in the real world, while keeping that mess contained at the edges of the architecture.
 
 **How I use this**
-- [Architecture Overview](./discovering-clean-architecture-legacy-monorepo/02-architecture-overview.md)
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [Architecture Overview](./discovering-clean-architecture-in-practice/02-architecture-overview.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Application layer](#application-layer)
@@ -290,7 +290,7 @@ Constraints that must always hold true for a domain object to be in a valid stat
 Examples include "an order must have at least one item" or "a user's age must be non-negative." By encoding invariants in the domain layer, you make business rules explicit and prevent invalid states from propagating through the system.
 
 **How I use this**
-- [The Domain Layer](./discovering-clean-architecture-legacy-monorepo/03-domain-layer.md)
+- [The Domain Layer](./discovering-clean-architecture-in-practice/03-domain-layer.md)
 
 **Related concepts**
 - [Domain layer](#domain-layer)
@@ -310,6 +310,30 @@ A structural part of an architecture that groups related responsibilities, conce
 
 A single repository that contains multiple applications, services and libraries. A monorepo can make it easier to share code and keep changes coordinated, but it also raises the stakes for architectural decisions: messy boundaries in one area can leak out and constrain the rest of the codebase.
 
+## Shared kernel (domain-driven design)
+
+**Type:** Concept
+
+A deliberate, explicitly owned set of domain concepts that is shared between two or more bounded contexts. A shared kernel is more than a "common" or "utils" module: it has a clear purpose, limited scope, and a small set of collaborators who agree to evolve it carefully.
+
+Used well, a shared kernel captures genuinely shared language and rules (for example, a core customer identity model) without turning into a dumping ground. Used poorly, it becomes an accidental, overgrown dependency that couples contexts too tightly and makes change harder.
+
+**Related concepts**
+- [Bounded contexts](#bounded-contexts)
+- [Domain layer](#domain-layer)
+
+## Strategy pattern (design pattern)
+
+**Type:** Pattern
+
+A behavioural design pattern where you define a family of algorithms behind a common interface and select which implementation to use at runtime. Each strategy encapsulates a different way of performing some piece of work, and the caller depends only on the interface, not on any specific implementation.
+
+In domain-driven design, strategies are often used inside the domain layer to model varying business behaviours (for example, different pricing or discount policies) without scattering `if/else` logic throughout the codebase. This is conceptually similar to ports and adapters, but focused on domain behaviour rather than infrastructure integration.
+
+**Related concepts**
+- [Domain layer](#domain-layer)
+- [Ports and adapters](#ports-and-adapters)
+
 ## Pattern (glossary type)
 
 **Type:** Definition
@@ -323,7 +347,7 @@ A reusable solution or approach to a recurring problem in software design. Patte
 A fundamental design or architectural guideline that informs how code should be structured. Principles are more abstract than patterns—they describe the "why" and the desired properties of good design rather than the "how". Examples include dependency inversion and the SOLID principles. Principles are typically implemented through specific techniques and patterns.
 
 **How I use this**
-- [Discovering Clean Architecture in a Legacy Monorepo](./discovering-clean-architecture-legacy-monorepo/01-introduction.md)
+- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
 
 **Related concepts**
 - [Clean Architecture](#clean-architecture)
@@ -341,7 +365,7 @@ An approach to structuring code by feature, so that each "slice" contains everyt
 In practice I treat Vertical Slice Architecture more as a way of thinking about flows and features than as the primary source-code structure, especially in a large monorepo.
 
 **How I use this**
-- [Discovering Clean Architecture in a Legacy Monorepo](./discovering-clean-architecture-legacy-monorepo/01-introduction.md)
+- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
 
 **Related concepts**
 - [Clean Architecture](#clean-architecture)
@@ -359,9 +383,9 @@ A pattern where the application layer defines interfaces (ports) that describe w
 Ports come in two flavours: driven (secondary) ports are used by the application to interact with the outside world (repositories, gateways), and driving (primary) ports are entry points that invoke the application (HTTP handlers, message subscribers).
 
 **How I use this**
-- [The Application Layer](./discovering-clean-architecture-legacy-monorepo/04-application-layer.md)
-- [The Infrastructure Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
+- [The Infrastructure Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Dependency inversion](#dependency-inversion)
@@ -381,8 +405,8 @@ A pattern where data access logic is encapsulated behind an interface that mimic
 In Clean Architecture, repository interfaces (ports) are defined in the application layer, and concrete implementations (adapters) live in the infrastructure layer.
 
 **How I use this**
-- [The Interface Adapters Layer](./discovering-clean-architecture-legacy-monorepo/05-interface-adapters-layer.md)
-- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-legacy-monorepo/06-ports-and-adapters.md)
+- [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
+- [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
 
 **Related concepts**
 - [Interface adapters layer](#interface-adapters-layer)
@@ -401,7 +425,7 @@ Domain objects that are defined entirely by their attributes and have no distinc
 Value objects are typically immutable. Operations on value objects return new instances rather than modifying existing ones. This makes them safe to share across contexts and easier to reason about in domain logic.
 
 **How I use this**
-- [The Domain Layer](./discovering-clean-architecture-legacy-monorepo/03-domain-layer.md)
+- [The Domain Layer](./discovering-clean-architecture-in-practice/03-domain-layer.md)
 
 **Related concepts**
 - [Entities](#entities)

@@ -1,10 +1,10 @@
 # Clean Architecture: A High-Level Map
 
-Published on 2025-12-05
+Last updated 2025-12-08
 
 **Themes:** clean architecture, layered architecture, dependency rules, separation of concerns, software design
 
-In this post, I'll step back from the introduction and give you a high-level map of the Clean Architecture approach I'm using for new services in this monorepo. We'll look at the four layers, focusing on the three innermost layers which influence our system architecture — domain, use-cases and interface adapters — and establish the dependency rules that hold everything together. This is the foundation we'll build on in the rest of the series.
+In this post, I'll step back from the introduction and give you a high-level map of the Clean Architecture approach I'm using for new services in this monorepo and in other real-world TypeScript services. We'll look at the four layers, focusing on the three innermost layers which influence our system architecture — domain, use-cases and interface adapters — and establish the dependency rules that hold everything together. This is the foundation we'll build on in the rest of the series.
 
 ---
 
@@ -30,7 +30,7 @@ In the services I'm building, I mostly talk about three innermost layers in the 
 - **Application** ↔ Use Cases
 - **Adapters** ↔ Interface Adapters
 
-Frameworks and drivers still exist, but in this monorepo they usually show up as third-party libraries and runtime/platform concerns rather than as a separate directory.
+Frameworks and drivers still exist, but in this monorepo (and similar codebases) they usually show up as third-party libraries and runtime/platform concerns rather than as a separate directory.
 
 ### Domain
 
@@ -63,12 +63,14 @@ This restriction keeps domain logic pure and portable. If you need to change dat
 ### Application Layer Dependencies
 
 The application layer can import from:
-- The application layer itself (other services, DTOs, application errors)
+- The application layer itself (other services*, DTOs, application errors)
 - The domain layer (models, domain logic, domain errors)
 
 It **cannot** import from interface adapters or frameworks & drivers. When the application layer needs infrastructure (for example, to persist data or call an external API), it expresses that need through an interface (a "port"), which interface adapters will implement. We'll discuss this in more detail in [Ports, Adapters and Dependency Inversion](./06-ports-and-adapters.md).
 
 In practice, that means application code depends on TypeScript interfaces and domain types, not on concrete HTTP frameworks, database drivers, or messaging clients.
+
+*Not to be confused with "micro-services".
 
 ### Adapter Layer Dependencies
 
@@ -88,9 +90,9 @@ The original Clean Architecture diagram includes a fourth ring outside Interface
 - **Frameworks & Drivers** are the tools and platform at the very edge: the Hono or Express framework, the Node.js HTTP server, database engines, message brokers, HTTP clients, cloud SDKs, and similar runtime concerns. They provide capabilities (HTTP routing, persistence, messaging), but they do not know about our domain or application.
 - **Interface Adapters** (our `adapters/` directory) are code we own that sits just inside those tools: HTTP route handlers and controllers, presenters, repository and gateway implementations, message handlers, mappers, and so on. Their job is to translate between framework-shaped or protocol-shaped data (HTTP requests, DB rows, queue messages) and the inputs and outputs that the application and domain expect.
 
-In this monorepo I do not model Frameworks & Drivers as a separate directory. Instead, they appear as third-party dependencies that the `adapters/` layer uses and wires into the application - they are just libraries that our adapters plug into.
+In this series, I do not model Frameworks & Drivers as a separate directory. Instead, they appear as third-party dependencies that the `adapters/` layer uses and wires into the application - they are just libraries that our adapters plug into.
 
-Because Frameworks & Drivers live outside our _core_ architecture, we have relatively little direct control over them from within a single service: we typically choose from a small set of approved options, and we inherit a lot of behaviour from the platform and wider organisation. For the purposes of this series I will mostly gloss over that outer ring and focus on how we design the layers we do control (domain, application, and adapters) so that we can swap or upgrade those outer tools with minimal pain.
+Because Frameworks & Drivers live outside our _core_ architecture, we have relatively little direct control over them from within a single service: we typically choose from a small set of approved options, and we inherit a lot of behaviour from the platform and wider organisation. For the purposes of this series I will mostly gloss over that outer ring and focus on how we design the layers we do control (domain, application, and adapters) so that we can swap or upgrade those outer tools with minimal pain, whether we are working in a monorepo or a standalone service.
 
 ![Dependency flow diagram – placeholder]
 
@@ -100,7 +102,7 @@ Because Frameworks & Drivers live outside our _core_ architecture, we have relat
 
 At first glance, these dependency rules might feel restrictive. Why not let the domain layer directly call a repository? Why force the application layer to define interfaces instead of just importing what it needs?
 
-The answer is resilience to change. In a legacy monorepo, change is constant. Databases get migrated, APIs evolve, infrastructure patterns shift. By keeping dependencies pointing inward, we isolate the core business logic from those changes.
+The answer is resilience to change. In many real-world codebases, change is constant. Databases get migrated, APIs evolve, infrastructure patterns shift. By keeping dependencies pointing inward, we isolate the core business logic from those changes.
 
 When you need to swap out a database or change how you handle external API calls, you only modify the adapter. The domain and application layers don't need to know or care. That isolation saves time, reduces risk, and makes the codebase easier to reason about as it grows.
 

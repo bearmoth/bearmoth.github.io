@@ -1,6 +1,6 @@
 # The Domain Layer
 
-Published on 2025-12-05
+Last updated 2025-12-08
 
 **Themes:** domain-driven design, domain layer, business logic, invariants, domain modelling
 
@@ -69,7 +69,7 @@ The answer is portability and testability. By keeping the domain layer pure, you
 - **Change infrastructure without touching domain code**. If you migrate databases or swap out an external API, the domain layer remains unchanged.
 - **Understand business rules at a glance**, without infrastructure noise obscuring the core logic.
 
-In a legacy monorepo, where infrastructure patterns shift frequently, this isolation is especially valuable. The domain layer becomes a stable core that evolves only when business requirements change, not when infrastructure does.
+In many real-world codebases, especially those with a mix of new and legacy implementations, this isolation is especially valuable. The domain layer becomes a stable core that evolves only when business requirements change, not when infrastructure does.
 
 ---
 
@@ -104,16 +104,16 @@ export class Order {
     }
   }
 
-  static create(id: OrderId, items: OrderItem[]): Order {
+  static create(id: OrderId, items: OrderItem[]): Promise<Order> {
     return new Order(id, items, OrderStatus.Pending);
   }
 
-  cancel(): Result<Order, DomainError> {
+  cancel(): Promise<Order> {
     // Business rule: can't cancel shipped orders
     if (this.status === OrderStatus.Shipped) {
-      return Result.failure(new CannotCancelShippedOrderError());
+      throw new CannotCancelShippedOrderError();
     }
-    return Result.success(new Order(this.id, this.items, OrderStatus.Cancelled));
+    return new Order(this.id, this.items, OrderStatus.Cancelled);
   }
 }
 ```

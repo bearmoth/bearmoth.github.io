@@ -15,7 +15,7 @@ This space is my latest, more realistic attempt: a quiet corner of the internet 
 ## Blog posts and series
 
 ### Series
-- [Discovering Clean Architecture in a Legacy Monorepo](./discovering-clean-architecture-legacy-monorepo/01-introduction.md) – A series about introducing Clean Architecture patterns into a legacy TypeScript monorepo, using a concrete service as a reference implementation.
+- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md) – A series about exploring and applying Clean Architecture patterns in real-world TypeScript services, using a concrete service as a reference implementation.
 
 ### Standalone posts
 - _None yet – watch this space._

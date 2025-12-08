@@ -1,6 +1,6 @@
 # Ports, Adapters, and Dependency Inversion
 
-Published on 2025-12-05
+Last updated 2025-12-08
 
 **Themes:** ports and adapters, hexagonal architecture, dependency inversion, dependency injection, composition root
 
@@ -62,19 +62,17 @@ For example:
 ```typescript
 // application/ports/order-repository.ts
 export interface OrderRepository {
-  save(order: Order): Effect<void, RepositoryError>;
-  findById(id: OrderId): Effect<Order | null, RepositoryError>;
+  save(order: Order): Promise<Order>;
+  findById(id: OrderId): Promise<Order | null>;
 }
 
-// application/services/place-order-service.ts
-export class PlaceOrderService {
+// application/services/order-service.ts
+export class OrderService {
   constructor(private readonly orderRepository: OrderRepository) {}
   
-  execute(dto: PlaceOrderDTO): Effect<Order, ApplicationError> {
+  async placeOrder(dto: PlaceOrderDTO): Promise<Order> {
     const order = Order.create(dto.orderId, dto.items);
-    return this.orderRepository.save(order).pipe(
-      Effect.map(() => order)
-    );
+    return this.orderRepository.save(order);
   }
 }
 ```
@@ -98,25 +96,24 @@ The flow is:
 For example:
 
 ```typescript
-// infrastructure/http-server/routes/place-order-route.ts
-import { PlaceOrderService } from "../../../application/services/place-order-service";
+// adapters/http-server/routes/place-order-route.ts
+import { OrderService } from "../../../application/services/order-service";
 
 export function createPlaceOrderRoute(placeOrderService: PlaceOrderService) {
   return async (req: Request, res: Response) => {
     const dto = req.body; // Assume validation happens earlier
-    
-    const result = await Effect.runPromise(placeOrderService.execute(dto));
-    
-    if (result.isSuccess) {
+   
+    try {
+      const result = await placeOrderService.execute(dto);
       res.status(201).json(result.value);
-    } else {
+    } catch (error) {
       res.status(400).json({ error: result.error.message });
     }
   };
 }
 ```
 
-The HTTP route (driving adapter) depends on the `PlaceOrderService` (port). It translates HTTP requests into DTOs, calls the service, and formats the response.
+The HTTP route (driving adapter) depends on the `OrderService` (port). It translates HTTP requests into DTOs, calls the service, and formats the response.
 
 ---
 
@@ -141,8 +138,8 @@ Let's look at a concrete example of how this plays out in import paths.
 ```typescript
 // application/ports/order-repository.ts
 export interface OrderRepository {
-  save(order: Order): Effect<void, RepositoryError>;
-  findById(id: OrderId): Effect<Order | null, RepositoryError>;
+  save(order: Order): EPromise<Order>;
+  findById(id: OrderId): Promise<Order | null>;
 }
 ```
 
@@ -175,8 +172,8 @@ The answer is a **composition root** (or bootstrap/assembly layer). This is wher
 Here's a simplified example:
 
 ```typescript
-// infrastructure/composition-root.ts
-import { PlaceOrderService } from "../application/services/place-order-service";
+// adapters/composition-root.ts
+import { OrderService } from "../application/services/order-service";
 import { PostgresOrderRepository } from "./repositories/postgres-order-repository";
 import { createPlaceOrderRoute } from "./http-server/routes/place-order-route";
 import { Pool } from "pg";
@@ -206,11 +203,13 @@ This is the only place in the codebase where we explicitly wire together ports a
 
 In a more sophisticated setup, you might use a dependency injection container (like those provided by [Effect](../glossary.md#effect) or InversifyJS) to manage this wiring automatically. But the principle remains the same: dependencies are assembled at the edges, and the core remains isolated.
 
+> **Note:** Personally, I actually like to place the composition root in either the root of my micro-service or in a config directory, rather than the `adapters/` directory.
+
 ---
 
-## A Brief Comparison: Ports & Adapters vs Strategy Pattern
+## A Brief Comparison: Ports & Adapters vs [Strategy pattern](../glossary.md#strategy-pattern-design-pattern)
 
-If you're familiar with design patterns, you might notice a similarity between ports and adapters and the **Strategy pattern**. Both involve defining an interface and swapping implementations at runtime.
+If you're familiar with design patterns, you might notice a similarity between ports and adapters and the **[Strategy pattern](../glossary.md#strategy-pattern-design-pattern)**. Both involve defining an interface and swapping implementations at runtime.
 
 The difference is in scope and intent:
 
@@ -225,7 +224,7 @@ Both patterns leverage polymorphism and dependency inversion, but they solve dif
 
 We've now covered the foundational ideas of Clean Architecture: the three layers, the dependency rules, and the ports and adapters pattern that ties it all together.
 
-In future posts, I'll dive into more specific topics: how [Effect](../glossary.md#effect) simplifies dependency injection and error handling, how to structure bounded contexts in a monorepo, and how to test this architecture effectively.
+In future posts, I'll dive into more specific topics: how we can leverage [Effect](../glossary.md#effect)'s vast ecosystem to achieve various patterns, how to structure bounded contexts in a monorepo, and how to test this architecture effectively.
 
 For now, you have the map. The rest of the series will fill in the details.
 

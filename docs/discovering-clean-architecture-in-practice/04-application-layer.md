@@ -1,6 +1,6 @@
 # The Application Layer
 
-Published on 2025-12-05
+Last updated 2025-12-08
 
 **Themes:** application layer, use-cases, orchestration, anti-corruption layer, DTOs
 
@@ -24,7 +24,7 @@ The application layer is home to the logic that coordinates domain objects to fu
 
 ### Use-Cases and Services
 
-Use-cases (often implemented as services) represent the operations your system supports. Examples might include "place an order," "cancel a subscription," or "generate a report."
+Use-cases (often implemented as "services") represent the operations your system supports. Examples might include "place an order," "cancel a subscription," or "generate a report."
 
 Each use-case coordinates domain logic, applies application-level validation, and interacts with infrastructure (through interfaces) to persist data, send messages, or communicate with external systems.
 
@@ -79,8 +79,8 @@ For example, an application service might need to save an order to a database. I
 ```typescript
 // application/ports/order-repository.ts
 export interface OrderRepository {
-  save(order: Order): Effect<void, RepositoryError>;
-  findById(id: OrderId): Effect<Order | null, RepositoryError>;
+  save(order: Order): Promise<void>;
+  findById(id: OrderId): Promise<Order | null>;
 }
 ```
 
@@ -107,27 +107,25 @@ The application layer orchestrates and coordinates. It doesn't contain the rules
 Here's a simplified example of an application service that handles placing an order:
 
 ```typescript
-// application/services/place-order-service.ts
+// application/services/order-service.ts
 import { OrderRepository } from "../ports/order-repository";
 import { Order } from "../../domain/order";
 import { PlaceOrderDTO } from "../dtos/place-order-dto";
 
-export class PlaceOrderService {
+export class OrderService {
   constructor(private readonly orderRepository: OrderRepository) {}
 
-  execute(dto: PlaceOrderDTO): Effect<Order, ApplicationError> {
+  placeOrder(dto: PlaceOrderDTO): Promise<Order> {
     // Application-level validation
     if (dto.items.length === 0) {
-      return Effect.fail(new ValidationError("Order must contain items"));
+      throw new ValidationError("Order must contain items");
     }
 
     // Create domain object (domain enforces invariants)
     const order = Order.create(dto.orderId, dto.items);
 
     // Persist via infrastructure port
-    return this.orderRepository.save(order).pipe(
-      Effect.map(() => order)
-    );
+    return this.orderRepository.save(order);
   }
 }
 ```
