@@ -22,7 +22,7 @@ In this post, I'll step back from the introduction and give you a high-level map
 
 [Clean Architecture](../glossary.md#clean-architecture) organises code into concentric layers, with dependencies pointing inward towards the core business logic. In the original diagram there are _four_ rings (Entities, Use Cases, Interface Adapters, and Frameworks & Drivers).
 
-![Clean Architecture layers diagram – placeholder]
+![Clean Architecture layers diagram – placeholder](../media/CleanArchitecture.jpg)
 
 In the services I'm building, I mostly talk about three innermost layers in the codebase, and map those rings as follows:
 
