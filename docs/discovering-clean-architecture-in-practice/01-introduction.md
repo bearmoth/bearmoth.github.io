@@ -44,6 +44,8 @@ One theme that will appear throughout is the importance of **well-considered [bo
 
 When I began planning improvements to a large TypeScript monorepo that already contained a mix of newer and legacy code, I initially aimed for a hybrid of Vertical Slice Architecture and Clean Architecture. I wanted to organise code by feature first, and then keep a clear separation of concerns by layer inside each slice.
 
+![Vertical Slice Architecture](../media/VerticalSliceArchitecture.png)
+
 Vertical Slice Architecture stood out as an attractive starting point. Its promise of organising code by feature—rather than by technical layer—seemed ideal for clarifying boundaries, reducing cross-cutting complexity, and making each “slice” independently understandable and testable.
 
 I was drawn to several benefits:
@@ -57,6 +59,8 @@ However, as I dogfooded this hybrid approach, several challenges emerged:
 - **Explaining boundaries:** It was not always clear what constituted a “slice,” leading to inconsistent implementations and confusion. My concern was that this pain point would surface when onboarding new developers, and time spent debating boundaries might be better spent elsewhere.
 - **Duplication vs. shared concerns:** Some logic (validation, error handling, utilities, db repositories) was duplicated across slices, while attempts to share code risked reintroducing tight coupling.
 - **Legacy integration and existing structure:** The existing services were not organised around clear architectural boundaries; they had grown organically over time. That lack of structure was already a problem, and the hybrid sometimes highlighted it rather than solving it. It became clear that what we really needed was a consistent set of practices and a _reference_ implementation for future services, regardless of whether the surrounding code was greenfield or legacy.
+
+![Vertical Slice Examples](../media/VerticalSliceExamples.png)
 
 ## Exploring the Hybrid in Practice
 
