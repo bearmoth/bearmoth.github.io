@@ -152,8 +152,7 @@ Infrastructure implements, integrates, and assembles. It doesn't define the rule
 
 We've now covered all three layers—domain, application, and infrastructure. In the next post, we'll tie it all together by exploring the ports and adapters pattern in depth. We'll see how interfaces (ports) and implementations (adapters) enable dependency inversion, how driving and driven adapters differ, and how to assemble everything at runtime.
 
-[Next Article ->](./06-ports-and-adapters.md)
-[<- Prev Article](./04-application-layer.md)
+[<- Prev Article](./04-application-layer.md) | [Next Article ->](./06-ports-and-adapters.md)
 
 ---
 

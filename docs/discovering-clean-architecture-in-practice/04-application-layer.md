@@ -144,8 +144,7 @@ The application layer coordinates without containing business rules or infrastru
 
 In the next post, we'll look at the infrastructure layer—the outermost layer where we finally interact with databases, HTTP frameworks, external APIs, and all the messy details that make software run in the real world.
 
-[Next Article ->](./05-interface-adapters-layer.md)
-[<- Prev Article](./03-domain-layer.md)
+[<- Prev Article](./03-domain-layer.md) | [Next Article ->](./05-interface-adapters-layer.md)
 
 ---
 

@@ -142,8 +142,7 @@ These aren't just conventions; they're constraints you can enforce with linters 
 
 In the next post, we'll zoom in on the domain layer. We'll look at what actually lives there—models, invariants, domain errors, and pure business logic—and why keeping this layer isolated is worth the effort.
 
-[Next Article ->](./03-domain-layer.md)
-[<- Prev Article](./01-introduction.md)
+[<- Prev Article](./01-introduction.md) | [Next Article ->](./03-domain-layer.md)
 
 ---
 

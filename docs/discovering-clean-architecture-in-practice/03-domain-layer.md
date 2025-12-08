@@ -131,8 +131,7 @@ The domain layer defines what an order is and what you can do with it. How order
 
 In the next post, we'll move up one layer and look at the application layer. This is where we orchestrate domain logic to fulfill use-cases, and where we start to see the need for infrastructure without directly depending on it.
 
-[Next Article ->](./04-application-layer.md)
-[<- Prev Article](./02-architecture-overview.md)
+[<- Prev Article](./02-architecture-overview.md) | [Next Article ->](./04-application-layer.md)
 
 ---
 

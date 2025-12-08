@@ -228,8 +228,7 @@ In future posts, I'll dive into more specific topics: how we can leverage [Effec
 
 For now, you have the map. The rest of the series will fill in the details.
 
-Next Article (WIP)
-[<- Prev Article](./05-interface-adapters-layer.md)
+[<- Prev Article](./05-interface-adapters-layer.md) | Next Article (WIP)
 
 
 ---
