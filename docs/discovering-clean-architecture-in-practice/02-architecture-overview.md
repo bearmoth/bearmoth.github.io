@@ -54,7 +54,7 @@ Another way to put this: the more business-specific a piece of code is, the less
 
 Here's how that plays out in practice:
 
-```mermaid
+<pre class="mermaid">
 ---
 title: Dependency Rules
 config:
@@ -70,7 +70,7 @@ flowchart LR
     IA -->|depends on| APP
     IA -->|depends on| DOMAIN
     APP -->|depends on| DOMAIN
-```
+</pre>
 
 ### Domain Layer Dependencies
 
@@ -161,3 +161,11 @@ In the next post, we'll zoom in on the domain layer. We'll look at what actually
 - [Application layer](../glossary.md#application-layer)
 - [Infrastructure layer](../glossary.md#infrastructure-layer)
 - [Dependency inversion](../glossary.md#dependency-inversion)
+
+<script type="module">
+	import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+	mermaid.initialize({
+		startOnLoad: true,
+		theme: 'dark'
+	});
+</script>
