@@ -224,7 +224,7 @@ Both patterns leverage polymorphism and dependency inversion, but they solve dif
 
 We've now covered the foundational ideas of Clean Architecture: the three layers, the dependency rules, and the ports and adapters pattern that ties it all together.
 
-In future posts, I'll dive into more specific topics: how we can leverage [Effect](../glossary.md#effect)'s vast ecosystem to achieve various patterns, how to structure bounded contexts in a monorepo, and how to test this architecture effectively.
+In a future series, I'll dive into more specific topics: how we can leverage [Effect](../glossary.md#effect)'s vast ecosystem to achieve various patterns, how to structure bounded contexts in a monorepo, and how to test this architecture effectively.
 
 For now, you have the map. The rest of the series will fill in the details.
 

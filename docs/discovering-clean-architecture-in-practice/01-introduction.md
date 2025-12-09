@@ -10,7 +10,6 @@ Across the series, we'll follow a modest but realistic PoC service as a referenc
 - How Clean Architecture's layers map onto day-to-day TypeScript services
 - Where vertical slices help and where they add friction
 - How bounded contexts shape the way we structure services in a monorepo
-- How [Effect](https://effect.website/) helps with dependency injection, error handling and composition
 
 The goal is not to present a perfect end state, but to show how these patterns behave under real constraints and trade-offs.
 
@@ -104,7 +103,6 @@ In the next post, I'll step back and give you a high-level map of the Clean Arch
 
 ## Further reading and resources
 
-- [Effect documentation](https://effect.website/docs) – the library I use for dependency management, error handling and more.
 - [Vertical Slice Architecture by Jimmy Bogard](https://jimmybogard.com/vertical-slice-architecture/) – background on vertical slices and why they can be attractive for feature-based organisation.
 - [Clean Architecture (Robert C. Martin)](https://www.goodreads.com/book/show/18043011-clean-architecture) (book) – foundational ideas behind the layering and dependency rules I draw on in this series.
 - [Domain-Driven Design (Eric Evans)](https://www.domainlanguage.com/ddd/) (book) – the source of concepts like bounded contexts that I rely on when structuring monorepo services.
@@ -115,4 +113,3 @@ In the next post, I'll step back and give you a high-level map of the Clean Arch
 - [Monorepo](../../glossary.md#monorepo)
 - [Bounded contexts](../../glossary.md#bounded-contexts)
 - [Vertical Slice Architecture](../../glossary.md#vertical-slice-architecture)
-- [Effect](../../glossary.md#effect)
