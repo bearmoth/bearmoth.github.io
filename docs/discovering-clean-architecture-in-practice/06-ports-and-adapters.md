@@ -184,10 +184,10 @@ export function bootstrap() {
   const orderRepository = new PostgresOrderRepository(dbPool);
   
   // Create application services, injecting infrastructure
-  const placeOrderService = new PlaceOrderService(orderRepository);
+  const orderService = new OrderService(orderRepository);
   
   // Create driving adapters (HTTP routes, etc.)
-  const placeOrderRoute = createPlaceOrderRoute(placeOrderService);
+  const placeOrderRoute = createPlaceOrderRoute(orderService);
   
   // Return or register routes
   return { placeOrderRoute };
