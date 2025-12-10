@@ -118,7 +118,7 @@ export class OrderService {
   placeOrder(dto: PlaceOrderDTO): Promise<Order> {
     // Application-level validation
     if (dto.items.length === 0) {
-      throw new ValidationError("Order must contain items");
+      throw new OrderValidationError("Order must contain items");
     }
 
     // Create domain object (domain enforces invariants)
