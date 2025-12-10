@@ -1,6 +1,6 @@
 # Ports, Adapters, and Dependency Inversion
 
-Last updated 2025-12-09
+Last updated 2025-12-10
 
 **Themes:** ports and adapters, hexagonal architecture, dependency inversion, dependency injection, composition root
 
@@ -123,9 +123,42 @@ You might notice that for driving adapters, we don't always define a separate in
 
 Why?
 
-Pragmatically, what would we gain from abstracting an HTTP server behind an interface? In most cases, the HTTP server is already an implementation detail of infrastructure. We're not going to swap it out for a different kind of "caller" in the same runtime.
+In most applications, the **workflow** (the sequence of steps in a use case) remains consistent, even when the underlying behaviour varies. When variation occurs, it typically manifests in one of two ways:
 
-That said, if you have multiple entry points that need a unified interface (for example, an HTTP API and a CLI that both trigger the same use-cases), you might introduce a facade or interface to standardise access. But for most services, the application service is a sufficient port for driving adapters.
+1. **Domain-level variation (algorithmic):** Different pricing strategies, validation rules, or business policies. These are handled by injecting different domain services or strategies into the same application service. The workflow stays the same; only the domain behaviour changes.
+
+2. **Infrastructure variation:** Different databases, message queues, or external APIs. These are handled by injecting different adapters that implement the same ports. Again, the workflow is unchanged.
+
+In both cases, the application service itself is stable. There's no need to abstract it behind an interface because we're not swapping out the **orchestration logic**—we're swapping out the **components it orchestrates**.
+
+### When You Might Need Explicit Ports for Application Services
+
+However, if you have genuinely different **workflows** for the same conceptual use case (for example, different order processing flows for different markets or regulatory regimes), you might define an explicit port:
+
+```typescript
+// application/ports/order-processing-port.ts
+export interface OrderProcessingPort {
+  execute(dto: PlaceOrderDTO): Promise<Result<Order>>;
+}
+
+// application/services/uk-order-service.ts
+export class UKOrderService implements OrderProcessingPort {
+  // UK-specific workflow: VAT calculation, GDPR checks, etc.
+}
+
+// application/services/us-order-service.ts
+export class USOrderService implements OrderProcessingPort {
+  // US-specific workflow: sales tax, state-level regulations, etc.
+}
+```
+
+Here, the **port** is the interface, and the **service implementation** becomes a driven component selected at runtime based on context.
+
+The key distinction is:
+- If you're changing **how** something is calculated or stored → use domain strategies or infrastructure adapters.
+- If you're changing the **steps in the workflow itself** → consider explicit ports for application services.
+
+For most applications, the former is far more common, so the application service acting as its own port is perfectly reasonable.
 
 ---
 
