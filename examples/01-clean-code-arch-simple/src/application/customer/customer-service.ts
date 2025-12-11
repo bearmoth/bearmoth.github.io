@@ -36,7 +36,7 @@ export class CustomerService {
    * @throws {Error} If the provided name or email is invalid according to the domain rules.
    */
   async registerCustomer(dto: RegisterCustomerDTO): Promise<Customer> {
-    const customerId = CustomerId.create(Date.now().toString());
+    const customerId = CustomerId.create(Date.now().toString()); // bad design for a real app, but fine for this simple example
     const customerName = CustomerName.create(dto.name);
     const customerEmail = CustomerEmail.create(dto.email);
 

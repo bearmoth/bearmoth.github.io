@@ -5,27 +5,17 @@ import {
   type OrderService,
   OrderValidationError,
 } from "../../../application/orders";
+import type { Logger } from "../../../application/ports";
 import { CannotCancelShippedOrderError, InvalidOrderError } from "../../../domain/orders";
-
-export function createOrderRoutes(orderService: OrderService): Hono {
+export function createOrderRoutes(orderService: OrderService, logger: Logger): Hono {
   const app = new Hono();
 
   app.post("/orders", async (ctx) => {
     try {
       const body = await ctx.req.json();
-      const order = await orderService.placeOrder(body);
+      const orderResponse = await orderService.placeOrder(body);
 
-      return ctx.json(
-        {
-          id: order.id.toString(),
-          customerId: order.customerId,
-          items: order.items.map((item) => item.toJSON()),
-          status: order.status,
-          totalAmount: order.totalAmount,
-          createdAt: order.createdAt.toISOString(),
-        },
-        201,
-      );
+      return ctx.json(orderResponse, 201);
     } catch (error) {
       if (error instanceof OrderValidationError || error instanceof InvalidOrderError) {
         return ctx.json({ error: error.message }, 400);
@@ -35,7 +25,7 @@ export function createOrderRoutes(orderService: OrderService): Hono {
         return ctx.json({ error: error.message }, 400);
       }
 
-      console.error("Error placing order:", error);
+      logger.error("Error placing order", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
   });
@@ -43,16 +33,9 @@ export function createOrderRoutes(orderService: OrderService): Hono {
   app.post("/orders/:id/cancel", async (ctx) => {
     try {
       const orderId = ctx.req.param("id");
-      const order = await orderService.cancelOrder({ orderId });
+      const orderResponse = await orderService.cancelOrder({ orderId });
 
-      return ctx.json({
-        id: order.id.toString(),
-        customerId: order.customerId,
-        items: order.items.map((item) => item.toJSON()),
-        status: order.status,
-        totalAmount: order.totalAmount,
-        createdAt: order.createdAt.toISOString(),
-      });
+      return ctx.json(orderResponse);
     } catch (error) {
       if (error instanceof OrderValidationError) {
         return ctx.json({ error: error.message }, 400);
@@ -66,7 +49,7 @@ export function createOrderRoutes(orderService: OrderService): Hono {
         return ctx.json({ error: error.message }, 409);
       }
 
-      console.error("Error cancelling order:", error);
+      logger.error("Error cancelling order", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
   });
@@ -74,26 +57,19 @@ export function createOrderRoutes(orderService: OrderService): Hono {
   app.get("/orders/:id", async (ctx) => {
     try {
       const orderId = ctx.req.param("id");
-      const order = await orderService.getOrderById(orderId);
+      const orderResponse = await orderService.getOrderById(orderId);
 
-      if (!order) {
+      if (!orderResponse) {
         return ctx.json({ error: `Order ${orderId} not found` }, 404);
       }
 
-      return ctx.json({
-        id: order.id.toString(),
-        customerId: order.customerId,
-        items: order.items.map((item) => item.toJSON()),
-        status: order.status,
-        totalAmount: order.totalAmount,
-        createdAt: order.createdAt.toISOString(),
-      });
+      return ctx.json(orderResponse);
     } catch (error) {
       if (error instanceof OrderValidationError) {
         return ctx.json({ error: error.message }, 400);
       }
 
-      console.error("Error fetching order:", error);
+      logger.error("Error fetching order", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
   });

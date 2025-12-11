@@ -37,6 +37,8 @@ The other part is pragmatic. I keep seeing the same kinds of problems repeat: un
 
 One theme that will appear throughout is the importance of **well-considered [bounded contexts](../../glossary.md#bounded-contexts)**. Clean Architecture on its own gives us horizontal layers, but in a large monorepo, those layers need to sit inside clearly defined domains to avoid becoming a single, bloated "core". I want each context to have its own cohesive model, language and rules, with only deliberate, well-designed collaboration points between them.
 
+For example, in the reference implementation for this series, you'll see both an Order context and a separate Customer context. Each lives within the horizontal layers (`domain/orders/`, `domain/customer/`, etc.), keeping the architecture layer-first whilst maintaining clear vertical boundaries. This structure helps prevent horizontal bloat—where shared layers quietly become a dumping ground for unrelated logic—by ensuring each context evolves independently with only intentional collaboration points.
+
 ---
 
 ## The Initial Appeal of [Vertical Slice Architecture](../../glossary.md#vertical-slice-architecture)

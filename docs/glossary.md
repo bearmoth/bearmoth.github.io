@@ -257,6 +257,26 @@ Like repositories, gateways implement interfaces (ports) defined by the applicat
 - [Gateway (Martin Fowler)](https://martinfowler.com/eaaCatalog/gateway.html)
 - [Hexagonal Architecture (Alistair Cockburn)](https://alistair.cockburn.us/hexagonal-architecture/)
 
+## Interface Segregation Principle
+
+**Type:** Principle
+
+The "I" in SOLID, stating that clients should not be forced to depend on interfaces they don't use. Instead of one large interface serving all clients, define multiple focused interfaces, each tailored to a specific client's needs.
+
+In the context of bounded contexts, this principle guides us to create separate, focused ports for each consuming context rather than sharing a single, bloated interface. For example, if three contexts need customer data, each should define its own `CustomerPort` with only the methods it requires, rather than all three depending on a shared interface containing the union of all their needs.
+
+**How I use this**
+- [Bounded Contexts and Cross-Context Collaboration](./bounded-contexts-collaboration.md)
+
+**Related concepts**
+- [Ports and adapters](#ports-and-adapters)
+- [Bounded contexts](#bounded-contexts)
+- [Dependency inversion](#dependency-inversion)
+
+**External references**
+- [Interface Segregation Principle (Robert C. Martin)](https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html)
+- [Clean Architecture (Robert C. Martin)](https://www.goodreads.com/book/show/18043011-clean-architecture) (book)
+
 ## Interface adapters layer
 
 **Type:** Layer
@@ -309,6 +329,17 @@ A structural part of an architecture that groups related responsibilities, conce
 **Type:** Concept
 
 A single repository that contains multiple applications, services and libraries. A monorepo can make it easier to share code and keep changes coordinated, but it also raises the stakes for architectural decisions: messy boundaries in one area can leak out and constrain the rest of the codebase.
+## Pattern (glossary type)
+
+**Type:** Definition
+
+A reusable solution or approach to a recurring problem in software design. Patterns describe a general structure or technique that can be applied in different contexts. Examples include anti-corruption layer, repository pattern, ports and adapters, and composition root. Patterns often embody or enable principles.
+
+## Principle (glossary type)
+
+**Type:** Definition
+
+A fundamental design or architectural guideline that informs how code should be structured. Principles are more abstract than patterns—they describe the "why" and the desired properties of good design rather than the "how". Examples include dependency inversion and the SOLID principles. Principles are typically implemented through specific techniques and patterns.
 
 ## Shared kernel (domain-driven design)
 
@@ -333,28 +364,6 @@ In domain-driven design, strategies are often used inside the domain layer to mo
 **Related concepts**
 - [Domain layer](#domain-layer)
 - [Ports and adapters](#ports-and-adapters)
-
-## Pattern (glossary type)
-
-**Type:** Definition
-
-A reusable solution or approach to a recurring problem in software design. Patterns describe a general structure or technique that can be applied in different contexts. Examples include anti-corruption layer, repository pattern, ports and adapters, and composition root. Patterns often embody or enable principles.
-
-## Principle (glossary type)
-
-**Type:** Definition
-
-A fundamental design or architectural guideline that informs how code should be structured. Principles are more abstract than patterns—they describe the "why" and the desired properties of good design rather than the "how". Examples include dependency inversion and the SOLID principles. Principles are typically implemented through specific techniques and patterns.
-
-**How I use this**
-- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
-
-**Related concepts**
-- [Clean Architecture](#clean-architecture)
-- [Bounded contexts](#bounded-contexts)
-
-**External references**
-- [Domain-Driven Design (Eric Evans)](https://www.domainlanguage.com/ddd/) (book)
 
 ## Vertical Slice Architecture
 

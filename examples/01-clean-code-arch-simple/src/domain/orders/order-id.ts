@@ -8,7 +8,7 @@ export class OrderId {
       throw new InvalidOrderIdError("OrderId cannot be empty");
     }
 
-    return new OrderId(value);
+    return new OrderId(value.trim());
   }
 
   toString(): string {

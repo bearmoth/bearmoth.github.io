@@ -8,7 +8,7 @@ export class CustomerId {
       throw new InvalidCustomerIdError("CustomerId cannot be empty");
     }
 
-    return new CustomerId(value);
+    return new CustomerId(value.trim());
   }
 
   toString(): string {

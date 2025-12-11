@@ -3,25 +3,26 @@ import { InvalidOrderError } from "./errors/invalid-order-error.js";
 import type { OrderId } from "./order-id.js";
 import type { OrderItem } from "./order-item.js";
 import { OrderStatus } from "./order-status.js";
+import type { PricingStrategy } from "./pricing-strategy.js";
 
 /**
  * Represents an Order in the domain.
- * 
+ *
  * The `Order` class is an aggregate root that encapsulates the details of an order,
  * including its identifier, associated customer, items, status, and creation date.
  * It enforces business rules such as requiring at least one item in the order and
  * preventing cancellation of shipped orders.
- * 
+ *
  * ## Responsibilities:
  * - Creation of new orders with validation.
  * - Reconstitution of existing orders from persistence.
  * - Business operations such as cancellation.
  * - Calculation of the total amount for the order.
- * 
+ *
  * ## Design Notes:
  * - The `customerId` is represented as a string to maintain bounded context separation.
  * - The class is immutable; operations return new instances rather than modifying the existing one.
- * 
+ *
  * @example
  * ```typescript
  * const order = Order.create(orderId, customerId, [orderItem]);
@@ -47,15 +48,16 @@ export class Order {
    * @param id - The unique identifier for the order.
    * @param customerId - The unique identifier for the customer placing the order.
    * @param items - An array of items included in the order. Must contain at least one item.
+   * @param createdAt - The timestamp when the order was created.
    * @returns A new instance of the `Order` class.
    * @throws {InvalidOrderError} If the `items` array is empty.
    */
-  static create(id: OrderId, customerId: string, items: OrderItem[]): Order {
+  static create(id: OrderId, customerId: string, items: OrderItem[], createdAt: Date): Order {
     if (items.length === 0) {
       throw new InvalidOrderError("Order must have at least one item");
     }
 
-    return new Order(id, customerId, items, OrderStatus.Pending, new Date());
+    return new Order(id, customerId, items, OrderStatus.Pending, createdAt);
   }
 
   /**
@@ -82,9 +84,9 @@ export class Order {
 
   /**
    * Cancels the current order if it is not already shipped or cancelled.
-   * 
+   *
    * @returns {Order} A new instance of the `Order` class with the status set to `Cancelled`.
-   * 
+   *
    * @throws {CannotCancelShippedOrderError} If the order has already been shipped.
    */
   cancel(): Order {
@@ -100,11 +102,23 @@ export class Order {
   }
 
   /**
-   * Calculates the total amount for the order by summing up the total cost of all items.
-   * 
-   * @returns The total amount as a number.
+   * Calculates the subtotal for the order by summing up the total cost of all items.
+   *
+   * @returns The subtotal amount as a number.
    */
-  get totalAmount(): number {
+  get subtotal(): number {
     return this.items.reduce((sum, item) => sum + item.total, 0);
+  }
+
+  /**
+   * Calculates the final total amount for the order by applying the pricing strategy to the subtotal.
+   * Pricing strategy is passed as a parameter rather than stored, as it's a calculation concern
+   * rather than part of the order's persisted state.
+   *
+   * @param pricingStrategy - The pricing strategy to apply.
+   * @returns The final total amount as a number, after applying any pricing rules (discounts, promotions, etc.).
+   */
+  calculateTotal(pricingStrategy: PricingStrategy): number {
+    return pricingStrategy.calculateFinalPrice(this.subtotal);
   }
 }

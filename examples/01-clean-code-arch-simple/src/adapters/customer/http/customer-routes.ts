@@ -1,13 +1,17 @@
 import { Hono } from "hono";
 import type { CustomerService } from "../../../application/customer";
+import type { Logger } from "../../../application/ports";
 
-export function createCustomerRoutes(customerService: CustomerService): Hono {
+export function createCustomerRoutes(customerService: CustomerService, logger: Logger): Hono {
   const app = new Hono();
 
   app.post("/customers", async (ctx) => {
     try {
       const body = await ctx.req.json();
-      const customer = await customerService.registerCustomer({ name: body.name, email: body.email });
+      const customer = await customerService.registerCustomer({
+        name: body.name,
+        email: body.email,
+      });
 
       // Manual field serialization in the adapter layer keeps domain entities pure.
       // Serialization is a presentation concern, not a domain concern.
@@ -23,7 +27,7 @@ export function createCustomerRoutes(customerService: CustomerService): Hono {
       if (error instanceof Error) {
         return ctx.json({ error: error.message }, 400);
       }
-      console.error("Error registering customer:", error);
+      logger.error("Error registering customer", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
   });
@@ -43,7 +47,7 @@ export function createCustomerRoutes(customerService: CustomerService): Hono {
         email: customer.email.toString(),
       });
     } catch (error) {
-      console.error("Error fetching customer:", error);
+      logger.error("Error fetching customer", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
   });

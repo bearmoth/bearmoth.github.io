@@ -18,7 +18,7 @@ This space is my latest, more realistic attempt: a quiet corner of the internet 
 - [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md) – A series about exploring and applying Clean Architecture patterns in real-world TypeScript services, using a concrete service as a reference implementation.
 
 ### Standalone posts
-- _None yet – watch this space._
+- [Bounded Contexts and Cross-Context Collaboration](./bounded-contexts-collaboration.md) – How bounded contexts collaborate through focused ports while maintaining clear boundaries and preventing horizontal bloat.
 
 ---
 

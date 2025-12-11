@@ -4,7 +4,7 @@ import type { CustomerName } from "./customer-name.js";
 
 /**
  * Represents a Customer entity in the domain.
- * 
+ *
  * This class is designed to encapsulate the properties and behaviors of a customer.
  * It follows the principles of immutability, ensuring that any updates to the customer's
  * properties result in the creation of a new instance.

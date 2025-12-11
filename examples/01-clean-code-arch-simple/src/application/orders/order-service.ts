@@ -1,5 +1,6 @@
-import { Order, OrderId, OrderItem } from "../../domain/orders";
+import { Order, OrderId, OrderItem, type PricingStrategy } from "../../domain/orders";
 import type { CancelOrderDTO, PlaceOrderDTO } from "./dtos";
+import { type OrderResponseDTO, toOrderResponseDTO } from "./dtos/order-response-dto";
 import { CustomerNotFoundError, OrderNotFoundError, OrderValidationError } from "./errors";
 import type { CustomerValidator, OrderRepository } from "./ports";
 
@@ -15,6 +16,7 @@ import type { CustomerValidator, OrderRepository } from "./ports";
  * - Validate input DTOs for required fields and basic invariants.
  * - Ensure referenced customers exist via the `CustomerValidator` port.
  * - Translate DTOs into domain entities and value objects (`Order`, `OrderId`, `OrderItem`).
+ * - Inject configuration (pricing strategy) into domain objects.
  * - Delegate persistence to the injected `OrderRepository` port.
  * - Surface meaningful application-level errors (e.g. `OrderValidationError`,
  *   `CustomerNotFoundError`, `OrderNotFoundError`) to calling layers.
@@ -25,11 +27,13 @@ import type { CustomerValidator, OrderRepository } from "./ports";
  * - {@link Order}: Domain aggregate representing an order and its invariants.
  * - {@link OrderId}: Domain value object encapsulating order identity.
  * - {@link OrderItem}: Domain entity/value object representing an item within an order.
+ * - {@link PricingStrategy}: Configuration defining how order totals are calculated.
  */
 export class OrderService {
   constructor(
     private readonly orderRepository: OrderRepository,
     private readonly customerValidator: CustomerValidator,
+    private readonly pricingStrategy: PricingStrategy,
   ) {}
 
   /**
@@ -50,9 +54,9 @@ export class OrderService {
    * Thrown if the DTO fails application-level validation (missing IDs or empty items list).
    * @throws {CustomerNotFoundError}
    * Thrown if the referenced customer does not exist.
-   * @returns A promise that resolves to the persisted {@link Order} aggregate.
+   * @returns A promise that resolves to an {@link OrderResponseDTO} with calculated total.
    */
-  async placeOrder(dto: PlaceOrderDTO): Promise<Order> {
+  async placeOrder(dto: PlaceOrderDTO): Promise<OrderResponseDTO> {
     // Application-level validation
     if (!dto.orderId || dto.orderId.trim().length === 0) {
       throw new OrderValidationError("Order ID is required");
@@ -60,10 +64,6 @@ export class OrderService {
 
     if (!dto.customerId || dto.customerId.trim().length === 0) {
       throw new OrderValidationError("Customer ID is required");
-    }
-
-    if (!dto.items || dto.items.length === 0) {
-      throw new OrderValidationError("Order must have at least one item");
     }
 
     // Validate customer exists (cross-context interaction)
@@ -79,10 +79,13 @@ export class OrderService {
     );
 
     // Domain logic creates the order with invariants enforced
-    const order = Order.create(orderId, dto.customerId, items);
+    const order = Order.create(orderId, dto.customerId, items, new Date());
 
     // Persist via port
-    return await this.orderRepository.save(order);
+    const savedOrder = await this.orderRepository.save(order);
+
+    // Return DTO with calculated total
+    return toOrderResponseDTO(savedOrder, this.calculateOrderTotal(savedOrder));
   }
 
   /**
@@ -97,12 +100,12 @@ export class OrderService {
    * {@link Order#cancel}, and the updated order state is persisted.
    *
    * @param dto - Data required to cancel an order, including the order ID.
-   * @returns The updated {@link Order} instance after cancellation.
+   * @returns An {@link OrderResponseDTO} with the updated order state and calculated total.
    *
    * @throws OrderValidationError If the provided order ID is missing or invalid.
    * @throws OrderNotFoundError If no order exists with the given ID.
    */
-  async cancelOrder(dto: CancelOrderDTO): Promise<Order> {
+  async cancelOrder(dto: CancelOrderDTO): Promise<OrderResponseDTO> {
     // Application-level validation
     if (!dto.orderId || dto.orderId.trim().length === 0) {
       throw new OrderValidationError("Order ID is required");
@@ -120,7 +123,10 @@ export class OrderService {
     const cancelledOrder = order.cancel();
 
     // Persist updated state
-    return await this.orderRepository.save(cancelledOrder);
+    const savedOrder = await this.orderRepository.save(cancelledOrder);
+
+    // Return DTO with calculated total
+    return toOrderResponseDTO(savedOrder, this.calculateOrderTotal(savedOrder));
   }
 
   /**
@@ -131,16 +137,33 @@ export class OrderService {
    * invalid, an {@link OrderValidationError} is thrown.
    *
    * @param orderId - The unique identifier of the order to retrieve.
-   * @returns A promise that resolves to the matching {@link Order} if found,
+   * @returns A promise that resolves to an {@link OrderResponseDTO} if found,
    * or `null` if no order exists with the given identifier.
    * @throws OrderValidationError If `orderId` is missing, empty, or invalid.
    */
-  async getOrderById(orderId: string): Promise<Order | null> {
+  async getOrderById(orderId: string): Promise<OrderResponseDTO | null> {
     if (!orderId || orderId.trim().length === 0) {
       throw new OrderValidationError("Order ID is required");
     }
 
     const id = OrderId.create(orderId);
-    return await this.orderRepository.findById(id);
+    const order = await this.orderRepository.findById(id);
+
+    if (!order) {
+      return null;
+    }
+
+    return toOrderResponseDTO(order, this.calculateOrderTotal(order));
+  }
+
+  /**
+   * Calculates the total amount for an order by applying the configured pricing strategy.
+   * This is where the pricing strategy configuration is actually used.
+   *
+   * @param order - The order to calculate the total for.
+   * @returns The total amount after applying pricing rules (discounts, promotions, etc.).
+   */
+  calculateOrderTotal(order: Order): number {
+    return order.calculateTotal(this.pricingStrategy);
   }
 }

@@ -28,10 +28,6 @@ export class PostgresCustomerRepository implements CustomerRepository {
       [id],
     );
 
-    if (result.rows.length === 0) {
-      return null;
-    }
-
     const row = result.rows[0];
     if (!row) {
       return null;

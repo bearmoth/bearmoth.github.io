@@ -18,6 +18,18 @@ const pool = createDatabasePool(dbConfig);
 // Compose application
 const app = createApp(pool);
 
+// Graceful shutdown handler
+async function shutdown() {
+  console.log("Shutting down gracefully...");
+  await pool.end();
+  console.log("Database pool closed");
+  process.exit(0);
+}
+
+// Register shutdown handlers
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
+
 // Start server
 console.log(`Starting server on port ${PORT}...`);
 console.log(`Database: ${dbConfig.database} at ${dbConfig.host}:${dbConfig.port}`);

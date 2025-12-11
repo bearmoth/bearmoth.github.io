@@ -2,7 +2,7 @@ import { InvalidOrderItemError } from "./errors";
 
 /**
  * Represents an item in an order, including its product details, quantity, and price.
- * 
+ *
  * This class is immutable and can only be instantiated through the static `create` method,
  * which ensures that all properties are validated before an instance is created.
  */
@@ -49,7 +49,7 @@ export class OrderItem {
       throw new InvalidOrderItemError("Price per unit cannot be negative");
     }
 
-    return new OrderItem(productId, productName, quantity, pricePerUnit);
+    return new OrderItem(productId.trim(), productName.trim(), quantity, pricePerUnit);
   }
 
   /**
@@ -66,7 +66,7 @@ export class OrderItem {
   /**
    * Converts the order item instance to a JSON representation.
    *
-   * @returns An object containing the product ID, product name, quantity, 
+   * @returns An object containing the product ID, product name, quantity,
    * and price per unit of the order item.
    */
   toJSON(): {
