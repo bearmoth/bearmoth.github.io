@@ -5,6 +5,7 @@ import { RepositoryError } from "../errors";
 
 interface OrderRow {
   id: string;
+  customer_id: string;
   items: string;
   status: string;
   created_at: Date;
@@ -18,12 +19,13 @@ export class PostgresOrderRepository implements OrderRepository {
       const itemsJson = JSON.stringify(order.items.map((item) => item.toJSON()));
 
       await this.pool.query(
-        `INSERT INTO orders (id, items, status, created_at)
-         VALUES ($1, $2, $3, $4)
+        `INSERT INTO orders (id, customer_id, items, status, created_at)
+         VALUES ($1, $2, $3, $4, $5)
          ON CONFLICT (id) DO UPDATE SET
+           customer_id = EXCLUDED.customer_id,
            items = EXCLUDED.items,
            status = EXCLUDED.status`,
-        [order.id.toString(), itemsJson, order.status, order.createdAt],
+        [order.id.toString(), order.customerId, itemsJson, order.status, order.createdAt],
       );
 
       return order;
@@ -35,7 +37,7 @@ export class PostgresOrderRepository implements OrderRepository {
   async findById(id: OrderId): Promise<Order | null> {
     try {
       const result = await this.pool.query<OrderRow>(
-        "SELECT id, items, status, created_at FROM orders WHERE id = $1",
+        "SELECT id, customer_id, items, status, created_at FROM orders WHERE id = $1",
         [id.toString()],
       );
 
@@ -71,6 +73,6 @@ export class PostgresOrderRepository implements OrderRepository {
     const status = parseOrderStatus(row.status);
     const createdAt = new Date(row.created_at);
 
-    return Order.reconstitute(orderId, items, status, createdAt);
+    return Order.reconstitute(orderId, row.customer_id, items, status, createdAt);
   }
 }

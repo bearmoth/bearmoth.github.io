@@ -12,9 +12,10 @@ describe("Domain Layer - Order", () => {
       const orderId = OrderId.create("order-123");
       const items = [OrderItem.create("prod-1", "Widget", 2, 10.5)];
 
-      const order = Order.create(orderId, items);
+      const order = Order.create(orderId, "customer-1", items);
 
       expect(order.id).toBe(orderId);
+      expect(order.customerId).toBe("customer-1");
       expect(order.items).toHaveLength(1);
       expect(order.status).toBe(OrderStatus.Pending);
       expect(order.totalAmount).toBe(21);
@@ -23,7 +24,7 @@ describe("Domain Layer - Order", () => {
     it("should reject order with no items", () => {
       const orderId = OrderId.create("order-123");
 
-      expect(() => Order.create(orderId, [])).toThrow(InvalidOrderError);
+      expect(() => Order.create(orderId, "customer-1", [])).toThrow(InvalidOrderError);
     });
   });
 
@@ -31,19 +32,26 @@ describe("Domain Layer - Order", () => {
     it("should cancel a pending order", () => {
       const orderId = OrderId.create("order-123");
       const items = [OrderItem.create("prod-1", "Widget", 1, 10)];
-      const order = Order.create(orderId, items);
+      const order = Order.create(orderId, "customer-1", items);
 
       const cancelled = order.cancel();
 
       expect(cancelled.status).toBe(OrderStatus.Cancelled);
       expect(cancelled.id).toBe(order.id);
+      expect(cancelled.customerId).toBe(order.customerId);
       expect(cancelled.items).toBe(order.items);
     });
 
     it("should reject cancellation of shipped order", () => {
       const orderId = OrderId.create("order-123");
       const items = [OrderItem.create("prod-1", "Widget", 1, 10)];
-      const shippedOrder = Order.reconstitute(orderId, items, OrderStatus.Shipped, new Date());
+      const shippedOrder = Order.reconstitute(
+        orderId,
+        "customer-1",
+        items,
+        OrderStatus.Shipped,
+        new Date(),
+      );
 
       expect(() => shippedOrder.cancel()).toThrow(CannotCancelShippedOrderError);
     });
@@ -51,7 +59,7 @@ describe("Domain Layer - Order", () => {
     it("should be idempotent for already cancelled orders", () => {
       const orderId = OrderId.create("order-123");
       const items = [OrderItem.create("prod-1", "Widget", 1, 10)];
-      const order = Order.create(orderId, items);
+      const order = Order.create(orderId, "customer-1", items);
 
       const cancelled1 = order.cancel();
       const cancelled2 = cancelled1.cancel();
@@ -65,7 +73,7 @@ describe("Domain Layer - Order", () => {
     it("should return new instance when cancelling", () => {
       const orderId = OrderId.create("order-123");
       const items = [OrderItem.create("prod-1", "Widget", 1, 10)];
-      const order = Order.create(orderId, items);
+      const order = Order.create(orderId, "customer-1", items);
 
       const cancelled = order.cancel();
 

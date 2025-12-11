@@ -1,5 +1,10 @@
 import { Hono } from "hono";
-import { OrderNotFoundError, OrderValidationError, type OrderService } from "../../../application/orders";
+import {
+  CustomerNotFoundError,
+  OrderNotFoundError,
+  type OrderService,
+  OrderValidationError,
+} from "../../../application/orders";
 import { CannotCancelShippedOrderError, InvalidOrderError } from "../../../domain/orders";
 
 export function createOrderRoutes(orderService: OrderService): Hono {
@@ -13,6 +18,7 @@ export function createOrderRoutes(orderService: OrderService): Hono {
       return ctx.json(
         {
           id: order.id.toString(),
+          customerId: order.customerId,
           items: order.items.map((item) => item.toJSON()),
           status: order.status,
           totalAmount: order.totalAmount,
@@ -24,6 +30,11 @@ export function createOrderRoutes(orderService: OrderService): Hono {
       if (error instanceof OrderValidationError || error instanceof InvalidOrderError) {
         return ctx.json({ error: error.message }, 400);
       }
+
+      if (error instanceof CustomerNotFoundError) {
+        return ctx.json({ error: error.message }, 400);
+      }
+
       console.error("Error placing order:", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
@@ -36,6 +47,7 @@ export function createOrderRoutes(orderService: OrderService): Hono {
 
       return ctx.json({
         id: order.id.toString(),
+        customerId: order.customerId,
         items: order.items.map((item) => item.toJSON()),
         status: order.status,
         totalAmount: order.totalAmount,
@@ -45,12 +57,15 @@ export function createOrderRoutes(orderService: OrderService): Hono {
       if (error instanceof OrderValidationError) {
         return ctx.json({ error: error.message }, 400);
       }
+
       if (error instanceof OrderNotFoundError) {
         return ctx.json({ error: error.message }, 404);
       }
+
       if (error instanceof CannotCancelShippedOrderError) {
         return ctx.json({ error: error.message }, 409);
       }
+
       console.error("Error cancelling order:", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
@@ -67,6 +82,7 @@ export function createOrderRoutes(orderService: OrderService): Hono {
 
       return ctx.json({
         id: order.id.toString(),
+        customerId: order.customerId,
         items: order.items.map((item) => item.toJSON()),
         status: order.status,
         totalAmount: order.totalAmount,
@@ -76,6 +92,7 @@ export function createOrderRoutes(orderService: OrderService): Hono {
       if (error instanceof OrderValidationError) {
         return ctx.json({ error: error.message }, 400);
       }
+
       console.error("Error fetching order:", error);
       return ctx.json({ error: "Internal server error" }, 500);
     }
