@@ -12,13 +12,9 @@ This space is my latest, more realistic attempt: a quiet corner of the internet 
 
 ---
 
-## Blog posts and series
+## Blogs
 
-### Series
-- [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md) – A series about exploring and applying Clean Architecture patterns in real-world TypeScript services, using a concrete service as a reference implementation.
-
-### Standalone posts
-- [Bounded Contexts and Cross-Context Collaboration](./bounded-contexts-collaboration.md) – How bounded contexts collaborate through focused ports while maintaining clear boundaries and preventing horizontal bloat.
+- [Code Organisation](./code-organisation/horizontal-vs-vertical-architecture.md) - Exploration of code organisation architectural patterns such as Vertical Slice Architecture and various horizontal architectures.
 
 ---
 

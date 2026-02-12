@@ -36,6 +36,7 @@ Application services coordinate domain objects, apply application-level validati
 - [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
 - [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
 
 **Related concepts**
 - [Domain layer](#domain-layer)
@@ -57,6 +58,7 @@ In a monorepo that uses Clean Architecture, I want each bounded context to conta
 
 **How I use this**
 - [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
 
 **Related concepts**
 - [Monorepo](#monorepo)
@@ -78,6 +80,7 @@ A set of principles for structuring code so that business and domain logic sit a
 - [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
 - [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
 
 **Related concepts**
 - [Bounded contexts](#bounded-contexts)
@@ -150,6 +153,7 @@ In Clean Architecture, dependency inversion is what allows the application layer
 - [Architecture Overview](./discovering-clean-architecture-in-practice/02-architecture-overview.md)
 - [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
 
 **Related concepts**
 - [Ports and adapters](#ports-and-adapters)
@@ -173,6 +177,7 @@ This isolation keeps domain logic portable, testable, and insulated from infrast
 - [The Domain Layer](./discovering-clean-architecture-in-practice/03-domain-layer.md)
 - [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
 - [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
 
 **Related concepts**
 - [Application layer](#application-layer)
@@ -290,6 +295,7 @@ The interface adapters layer contains the "messy details" that make software run
 - [The Application Layer](./discovering-clean-architecture-in-practice/04-application-layer.md)
 - [The Interface Adapters Layer](./discovering-clean-architecture-in-practice/05-interface-adapters-layer.md)
 - [Ports, Adapters, and Dependency Inversion](./discovering-clean-architecture-in-practice/06-ports-and-adapters.md)
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
 
 **Related concepts**
 - [Application layer](#application-layer)
@@ -349,6 +355,9 @@ A deliberate, explicitly owned set of domain concepts that is shared between two
 
 Used well, a shared kernel captures genuinely shared language and rules (for example, a core customer identity model) without turning into a dumping ground. Used poorly, it becomes an accidental, overgrown dependency that couples contexts too tightly and makes change harder.
 
+**How I use this**
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
+
 **Related concepts**
 - [Bounded contexts](#bounded-contexts)
 - [Domain layer](#domain-layer)
@@ -375,6 +384,7 @@ In practice I treat Vertical Slice Architecture more as a way of thinking about 
 
 **How I use this**
 - [Discovering Clean Architecture in Practice](./discovering-clean-architecture-in-practice/01-introduction.md)
+- [Horizontal vs Vertical Architecture](./code-organisation/horizontal-vs-vertical-architecture.md)
 
 **Related concepts**
 - [Clean Architecture](#clean-architecture)
@@ -443,5 +453,3 @@ Value objects are typically immutable. Operations on value objects return new in
 **External references**
 - [Value Object (Martin Fowler)](https://martinfowler.com/bliki/ValueObject.html)
 - [Domain-Driven Design (Eric Evans)](https://www.domainlanguage.com/ddd/) (book)
-
-## Vertical Slice Architecture
