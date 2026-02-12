@@ -2,7 +2,7 @@
 
 Last updated 2025-12-10
 
-**Themes:** bounded contexts, interface segregation, ports and adapters, horizontal bloat, clean architecture, dependency inversion
+**Topics:** bounded contexts, interface segregation, ports and adapters, horizontal bloat, clean architecture, dependency inversion
 
 One of the key challenges in applying Clean Architecture to a monorepo is preventing horizontal layers from becoming bloated dumping grounds for shared code. In this post, we'll explore how bounded contexts collaborate through focused ports, demonstrating how the Interface Segregation Principle prevents coupling and maintains clear context boundaries.
 

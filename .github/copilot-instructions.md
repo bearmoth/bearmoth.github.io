@@ -92,7 +92,7 @@ When generating or editing blog posts in `docs/`:
   - Optionally, a “Last updated YYYY-MM-DD” line and any other basic metadata (unless handled by front-matter).
   - Optionally, a **Themes** line listing 2–6 key topics for the post, for example:
 
-    `**Themes:** clean architecture, legacy monorepo, refactoring`
+    `**Topics:** clean architecture, legacy monorepo, refactoring`
 
   - If a post feels like it genuinely needs more than 6 core themes, pause and consider whether it would be clearer as a short series or multiple focused posts, rather than a single, overloaded article.
 

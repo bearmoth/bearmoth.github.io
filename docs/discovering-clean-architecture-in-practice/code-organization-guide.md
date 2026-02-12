@@ -2,7 +2,7 @@
 
 Last updated 2025-12-11
 
-**Themes:** code organization, project structure, naming conventions, clean architecture, bounded contexts, file layout
+**Topics:** code organization, project structure, naming conventions, clean architecture, bounded contexts, file layout
 
 Clear, consistent code organisation makes it easier to navigate a codebase, understand where new code should go, and maintain architectural boundaries over time. In this post, I'll share the directory structure conventions, naming patterns, and organisational principles I use when structuring Clean Architecture projects with bounded contexts.
 

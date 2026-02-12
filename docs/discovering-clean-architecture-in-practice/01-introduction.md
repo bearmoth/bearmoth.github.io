@@ -2,7 +2,7 @@
 
 Last updated 2025-12-09
 
-**Themes:** clean architecture, vertical slice architecture, bounded contexts
+**Topics:** clean architecture, vertical slice architecture, bounded contexts
 
 Welcome to the first post in my series on refining and applying [clean architecture](../../glossary.md#clean-architecture) patterns while building new services in a TypeScript [monorepo](../../glossary.md#monorepo). I’ll document how I surface improved patterns, integrate with existing libraries (including legacy ones), and evolve architectural decisions in contexts that don’t start from a blank slate.
 

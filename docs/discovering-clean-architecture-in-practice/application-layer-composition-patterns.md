@@ -2,7 +2,7 @@
 
 Last updated 2025-12-11
 
-**Themes:** application layer, service composition, dependency injection, bounded contexts, orchestration, multi-context operations
+**Topics:** application layer, service composition, dependency injection, bounded contexts, orchestration, multi-context operations
 
 The application layer orchestrates domain logic to fulfil use-cases. But what happens when a use-case spans multiple bounded contexts? Should an application service import domain logic from multiple contexts directly, or should it inject other application services to coordinate cross-context operations?
 

@@ -2,7 +2,7 @@
 
 Last updated 2025-12-09
 
-**Themes:** domain-driven design, domain layer, business logic, invariants, domain modelling
+**Topics:** domain-driven design, domain layer, business logic, invariants, domain modelling
 
 > **Note:** I have a strong preference for immutability in domain models and business logic. Where possible, I favour designs that avoid mutation and instead return new values for state changes. This keeps rules explicit, makes code easier to reason about, and helps ensure invariants are always enforced.
 

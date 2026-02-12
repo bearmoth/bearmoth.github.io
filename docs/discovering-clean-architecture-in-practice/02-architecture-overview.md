@@ -2,7 +2,7 @@
 
 Last updated 2025-12-09
 
-**Themes:** clean architecture, layered architecture, dependency rules, separation of concerns, software design
+**Topics:** clean architecture, layered architecture, dependency rules, separation of concerns, software design
 
 In this post, I'll step back from the introduction and give you a high-level map of the Clean Architecture approach I'm using for new services in this monorepo and in other real-world TypeScript services. We'll look at the four layers, focusing on the three innermost layers which influence our system architecture — domain, use-cases and interface adapters — and establish the dependency rules that hold everything together. This is the foundation we'll build on in the rest of the series.
 

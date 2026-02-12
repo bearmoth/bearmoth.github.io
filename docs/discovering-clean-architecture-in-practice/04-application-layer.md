@@ -2,7 +2,7 @@
 
 Last updated 2025-12-09
 
-**Themes:** application layer, use-cases, orchestration, anti-corruption layer, DTOs
+**Topics:** application layer, use-cases, orchestration, anti-corruption layer, DTOs
 
 The application layer sits between the domain and infrastructure. It's where use-cases live, where domain logic gets orchestrated to achieve specific goals, and where we start to express the need for infrastructure without directly depending on it. In this post, we'll explore what belongs in the application layer and how it keeps the domain pure while still getting real work done.
 

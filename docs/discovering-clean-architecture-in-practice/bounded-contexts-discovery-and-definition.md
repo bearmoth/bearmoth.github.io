@@ -2,7 +2,7 @@
 
 Last updated 2025-12-11
 
-**Themes:** bounded contexts, domain-driven design, clean architecture, context mapping, ubiquitous language, domain modelling
+**Topics:** bounded contexts, domain-driven design, clean architecture, context mapping, ubiquitous language, domain modelling
 
 Bounded contexts are one of the most powerful—and most misunderstood—patterns in domain-driven design. When applied well, they give you clear ownership boundaries, focused vocabularies, and independent evolution paths for different parts of your system. When applied poorly, they can feel arbitrary, create unnecessary duplication, or fail to prevent the coupling they're meant to address.
 

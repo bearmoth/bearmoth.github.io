@@ -2,7 +2,7 @@
 
 Last updated 2025-12-11
 
-**Themes:** domain layer, dependencies, architectural boundaries, clean architecture, domain purity, pragmatism
+**Topics:** domain layer, dependencies, architectural boundaries, clean architecture, domain purity, pragmatism
 
 One of the most contentious decisions in Clean Architecture is what external dependencies, if any, should be allowed in the domain layer. Purists argue the domain should have zero external dependencies. Pragmatists argue that strict purity can create unnecessary friction and duplication. In this post, I'll share the policy I use, the trade-offs involved, and how to evaluate new libraries for domain layer use.
 

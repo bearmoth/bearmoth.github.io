@@ -2,7 +2,7 @@
 
 Last updated 2025-12-10
 
-**Themes:** ports and adapters, hexagonal architecture, dependency inversion, dependency injection, composition root
+**Topics:** ports and adapters, hexagonal architecture, dependency inversion, dependency injection, composition root
 
 We've explored the three layers—domain, application, and infrastructure—and established the dependency rules that keep business logic insulated from infrastructure. In this post, we'll look at the mechanism that makes it all work: the ports and adapters pattern. We'll see how interfaces (ports) and implementations (adapters) enable dependency inversion, how to distinguish driving from driven adapters, and how to assemble everything at runtime.
 

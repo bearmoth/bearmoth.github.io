@@ -2,7 +2,7 @@
 
 Last updated 2025-12-09
 
-**Themes:** interface adapters layer, adapters, repositories, HTTP servers, integration, side effects
+**Topics:** interface adapters layer, adapters, repositories, HTTP servers, integration, side effects
 
 The interface adapters layer is where we finally leave the world of pure logic and interfaces, and start dealing with the messy reality of databases, HTTP frameworks, external APIs, and all the other details that make software run. In this post, we'll look at what lives in the adapters layer and how it implements the contracts defined by the application layer.
 
