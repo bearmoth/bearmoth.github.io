@@ -14,7 +14,7 @@ Consider a modern website: you could write distinct HTML, CSS, and JavaScript fi
 
 Assuming clear modular boundaries and loose coupling between slices, VSA seemed attractive due to its promise of improved discoverability, understandability, and flexibility.
 
-![coupling-vs-cohesion](./media/coupling-cohesion.jpg)
+![coupling-vs-cohesion](../media/coupling-cohesion.jpg)
 
 ## Friction Points in Practice
 
@@ -24,7 +24,7 @@ Despite promising easier onboarding, code still felt complex and confusing. Resp
 
 Consider a microservice responsible for running promotions. We sliced by "managing promotional campaigns" and "users making claims" - but both features required SQL queries to look up a campaign. If we opted for code replication, we risked lower maintainability: making the same changes multiple times, and potential for inconsistent behaviour. If we extracted the code into a [shared kernel](./glossary.md#shared-kernel-domain-driven-design), we risked creating a catch-all dumping ground for anything that didn't neatly fit into a single slice.
 
-Horizontal architectures, by comparison, appeared to group wildly unrelated code together and require excessive directory nesting. I'm no **Java** developer, but experiencing this monstrocity ([source](https://levelup.gitconnected.com/leveraging-hexagonal-architectures-with-vertical-slice-architecture-and-feature-toggles-a308a48641b3)) on a daily basis may well have lead to an accelerated career change, retreating to grueling manual labour work on a remote farm, somewhere far away from modern civilization and technology:
+Horizontal architectures, by comparison, appeared to group wildly unrelated code together and require excessive directory nesting. I'm no **Java** developer, but experiencing this monstrosity ([source](https://levelup.gitconnected.com/leveraging-hexagonal-architectures-with-vertical-slice-architecture-and-feature-toggles-a308a48641b3)) on a daily basis may well have lead to an accelerated career change, retreating to grueling manual labour work on a remote farm, somewhere far away from modern civilization and technology:
 
 ```
 my-project/
